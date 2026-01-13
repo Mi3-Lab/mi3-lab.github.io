@@ -242,6 +242,30 @@ section:nth-child(even) {
   margin-bottom: 5px;
 }
 
+/* Highlights */
+.highlights-section {
+  background: var(--bg-light);
+}
+
+.highlights-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 15px;
+}
+
+.highlights-list li {
+  background: white;
+  padding: 18px 22px;
+  border-radius: 8px;
+  border-left: 4px solid var(--secondary-color);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  font-weight: 500;
+  color: var(--primary-color);
+}
+
 /* Collaborators */
 .collaborators {
   display: flex;
