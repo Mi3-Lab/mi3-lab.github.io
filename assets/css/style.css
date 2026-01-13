@@ -163,11 +163,19 @@ img {
 }
 
 .hero .tagline {
-  font-size: 1.25rem;
+  font-size: 1.15rem;
   font-style: italic;
-  max-width: 800px;
+  max-width: 1000px;
   margin: 0 auto;
   opacity: 0.85;
+  white-space: nowrap;
+}
+
+@media (max-width: 1000px) {
+  .hero .tagline {
+    white-space: normal;
+    max-width: 90%;
+  }
 }
 
 /* Section Styles */
