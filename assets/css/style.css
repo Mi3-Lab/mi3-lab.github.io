@@ -266,6 +266,17 @@ section:nth-child(even) {
   color: var(--primary-color);
 }
 
+.highlights-list li a {
+  color: var(--primary-color);
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  transition: border-color var(--transition);
+}
+
+.highlights-list li a:hover {
+  border-bottom-color: var(--secondary-color);
+}
+
 /* Highlights & Gallery Page */
 .highlights-page-section,
 .gallery-page-section {
