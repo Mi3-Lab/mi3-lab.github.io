@@ -266,6 +266,21 @@ section:nth-child(even) {
   color: var(--primary-color);
 }
 
+/* Highlights & Gallery Page */
+.highlights-page-section,
+.gallery-page-section {
+  margin-bottom: 50px;
+}
+
+.highlights-page-section h2,
+.gallery-page-section h2 {
+  color: var(--primary-color);
+  border-bottom: 2px solid var(--secondary-color);
+  padding-bottom: 10px;
+  margin-bottom: 25px;
+  font-size: 1.75rem;
+}
+
 /* Collaborators */
 .collaborators {
   display: flex;
