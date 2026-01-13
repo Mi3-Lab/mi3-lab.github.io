@@ -1,0 +1,38 @@
+title: Mi3 Lab
+description: Machine Intelligence, Interaction & Imagination
+url: "https://mi3-lab.github.io"
+baseurl: ""
+
+# Lab info
+lab_name: Mi3 Lab
+lab_full_name: Machine Intelligence, Interaction & Imagination
+university: University of California, Merced
+department: Computer Science and Engineering
+email: rossgreer@ucmerced.edu
+phone: "(209) 228-4400"
+address: "5200 North Lake Rd, Merced, CA 95343"
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+
+# Exclude from build
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+
+# Navigation
+navigation:
+  - title: Home
+    url: /
+  - title: People
+    url: /people
+  - title: Publications
+    url: /publications
+  - title: News
+    url: /news
+  - title: Prospective Members
+    url: /prospective
+  - title: Gallery
+    url: /gallery
