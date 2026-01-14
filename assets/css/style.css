@@ -178,6 +178,40 @@ img {
   }
 }
 
+/* Home Images Strip */
+.home-images {
+  padding: 40px 0;
+  background: var(--bg-light);
+}
+
+.image-strip {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: stretch;
+}
+
+.image-strip img {
+  height: 220px;
+  width: auto;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+@media (max-width: 900px) {
+  .image-strip {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .image-strip img {
+    height: auto;
+    width: 100%;
+    max-width: 500px;
+  }
+}
+
 /* Section Styles */
 section {
   padding: 60px 0;
