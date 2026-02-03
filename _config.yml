@@ -34,3 +34,5 @@ navigation:
     url: /prospective
   - title: Highlights & Gallery
     url: /gallery
+  - title: doScenes Challenge
+    url: /doScenes_challenge
