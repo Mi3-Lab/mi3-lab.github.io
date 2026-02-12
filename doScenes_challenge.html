@@ -647,6 +647,7 @@
                         <li><strong>Final Displacement Error (FDE):</strong> L2 distance between predicted and ground-truth positions at the final time step.</li>
                         <li><strong>Instruction Conditioning Gain (Delta ADE):</strong> Improvement in ADE relative to a history-only baseline, measuring the benefit of incorporating language instructions.</li>
                     </ul>
+                    <p><strong>ADE reporting specification:</strong> ADE is computed as mean Average Displacement Error. We report the Q97.5-filtered mean, removing the top 2.5% highest-error scenes to avoid catastrophic outliers.</p>
                     <p>The Instruction Conditioning Gain is computed as:</p>
                     <p><strong>Delta ADE = ADE<sub>baseline</sub> − ADE<sub>instruction</sub></strong> (1)</p>
                     <p>Positive values indicate improvement from using language instructions.</p>
@@ -696,20 +697,20 @@
                         <tbody>
                             <tr class="baseline-row">
                                 <td>—</td>
-                                <td><strong>History-Only Baseline</strong><span class="baseline-badge">NO LANGUAGE</span></td>
+                                <td><strong>History-Only</strong><span class="baseline-badge">NO LANGUAGE</span></td>
                                 <td>Full Multimodal</td>
-                                <td>---</td>
+                                <td>2.879</td>
                                 <td>---</td>
                                 <td>---</td>
                                 <td>---</td>
                             </tr>
                             <tr class="baseline-row">
                                 <td>—</td>
-                                <td><strong>Instruction Baseline</strong><span class="baseline-badge">LANGUAGE</span></td>
+                                <td><strong>Instruction</strong><span class="baseline-badge">LANGUAGE</span></td>
                                 <td>Full Multimodal</td>
+                                <td>2.929</td>
                                 <td>---</td>
-                                <td>---</td>
-                                <td>---</td>
+                                <td>-0.050</td>
                                 <td>---</td>
                             </tr>
                             <tr>
@@ -891,10 +892,85 @@
                     <ul>
                         <li>Dataset and project page: https://github.com/rossgreer/doScenes</li>
                     </ul>
+                    <section aria-labelledby="citation-doscenes">
+                      <h3 id="citation-doscenes">Citation</h3>
+                      <p>
+                        Roy et al., <em>doScenes: An Autonomous Driving Dataset with Natural Language Instruction for Human Interaction and Vision-Language Navigation</em>, arXiv:2412.05893, 2024.
+                        <a href="https://arxiv.org/abs/2412.05893" target="_blank" rel="noopener">https://arxiv.org/abs/2412.05893</a>
+                      </p>
 
-                    <h3>Citation</h3>
-                    <p>If you use this dataset in your research, please cite the original paper:</p>
-                    <a href="https://arxiv.org/abs/2412.05893" target="_blank" rel="noopener">https://arxiv.org/abs/2412.05893</a>
+                      <details>
+                        <summary>BibTeX</summary>
+                        <pre><code>@misc{roy2024doscenesautonomousdrivingdataset,
+      title={doScenes: An Autonomous Driving Dataset with Natural Language Instruction for Human Interaction and Vision-Language Navigation},
+      author={Parthib Roy and Srinivasa Perisetla and Shashank Shriram and Harsha Krishnaswamy and Aryan Keskar and Ross Greer},
+      year={2024},
+      eprint={2412.05893},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2412.05893},
+}
+</code></pre>
+                      </details>
+                      <p>
+                        Martinez-Sanchez et al., <em>Natural Language Instructions for Scene-Responsive Human-in-the-Loop Motion Planning in Autonomous Driving using Vision-Language-Action Models</em>, arXiv:2602.04184, 2026.
+                        <a href="https://arxiv.org/abs/2602.04184" target="_blank" rel="noopener">https://arxiv.org/abs/2602.04184</a>
+                      </p>
+
+                      <details>
+                        <summary>BibTeX</summary>
+                        <pre><code>@misc{martinezsanchez2026naturallanguage,
+  title={Natural Language Instructions for Scene-Responsive Human-in-the-Loop Motion Planning in Autonomous Driving using Vision-Language-Action Models},
+  author={Angel Martinez-Sanchez and Parthib Roy and Ross Greer},
+  year={2026},
+  eprint={2602.04184},
+  archivePrefix={arXiv},
+  primaryClass={cs.CV},
+  url={https://arxiv.org/abs/2602.04184}
+}
+</code></pre>
+                      </details>
+                    
+                      <h3>Related Work from the Authors</h3>
+
+                      <p>
+                        Greer et al., <em>Vision and language: Novel Representations and Artificial intelligence for Driving Scene Safety Assessment and Autonomous Vehicle Planning</em>, arXiv:2602.07680, 2026.
+                        <a href="https://arxiv.org/abs/2602.07680" target="_blank" rel="noopener">https://arxiv.org/abs/2602.07680</a>
+                      </p>
+
+                      <details>
+                        <summary>BibTeX</summary>
+                        <pre><code>@misc{greer2026visionlanguagenovelrepresentations,
+      title={Vision and language: Novel Representations and Artificial intelligence for Driving Scene Safety Assessment and Autonomous Vehicle Planning},
+      author={Ross Greer and Maitrayee Keskar and Angel Martinez-Sanchez and Parthib Roy and Shashank Shriram and Mohan Trivedi},
+      year={2026},
+      eprint={2602.07680},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2602.07680}
+}
+</code></pre>
+                      </details>
+
+                      <p>
+                        Greer et al., <em>Looking and Listening Inside and Outside: Multimodal Artificial Intelligence Systems for Driver Safety Assessment and Intelligent Vehicle Decision-Making</em>, arXiv:2602.07668, 2026.
+                        <a href="https://arxiv.org/abs/2602.07668" target="_blank" rel="noopener">https://arxiv.org/abs/2602.07668</a>
+                      </p>
+
+                      <details>
+                        <summary>BibTeX</summary>
+                        <pre><code>@misc{greer2026lookinglisteninginsideoutside,
+      title={Looking and Listening Inside and Outside: Multimodal Artificial Intelligence Systems for Driver Safety Assessment and Intelligent Vehicle Decision-Making},
+      author={Ross Greer and Laura Fleig and Maitrayee Keskar and Erika Maquiling and Giovanni Tapia Lopez and Angel Martinez-Sanchez and Parthib Roy and Jake Rattigan and Mira Sur and Alejandra Vidrio and Thomas Marcotte and Mohan Trivedi},
+      year={2026},
+      eprint={2602.07668},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2602.07668}
+}
+</code></pre>
+                      </details>
+                    </section>
                 </div>
             </div>
 
@@ -943,3 +1019,16 @@
     </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
