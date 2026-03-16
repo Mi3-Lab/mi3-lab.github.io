@@ -749,10 +749,6 @@
                         than memorizing specific templates.
                     </p>
 
-                    <div class="callout">
-                        The test split is held out and labels are never released. Submit predictions to receive scores.
-                    </div>
-
                     <h3>Dataset Statistics</h3>
                     <div class="hero-buttons" style="margin: 0 0 1rem;">
                         <a href="https://github.com/rossgreer/doScenes" class="btn-secondary" target="_blank" rel="noopener">View Dataset</a>
@@ -788,41 +784,64 @@
                         </tbody>
                     </table>
 
-                    <h3>Train / Validation / Test Splits</h3>
+                    <h3>Dataset Splits and Evaluation Protocol</h3>
+                    <p>
+                        The doScenes benchmark uses the standard nuScenes dataset splits as the basis for training and evaluation.
+                    </p>
                     <table class="data-splits-table">
                         <thead>
                             <tr>
                                 <th>Split</th>
-                                <th>Availability</th>
-                                <th>Purpose</th>
-                                <th>Notes</th>
+                                <th>Source</th>
+                                <th>Challenge Role</th>
+                                <th>Protocol</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td><strong>Training</strong></td>
-                                <td>Public</td>
+                                <td>nuScenes train split</td>
                                 <td>Model training</td>
-                                <td>Includes instructions for all scenes</td>
+                                <td>Models must be trained exclusively on this split</td>
                             </tr>
                             <tr>
-                                <td><strong>Validation</strong></td>
-                                <td>Public</td>
-                                <td>Model selection and ablations</td>
-                                <td>Use for tuning and reporting ablation results</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Test</strong></td>
-                                <td>Held out</td>
-                                <td>Final leaderboard scoring</td>
-                                <td>Inputs only; labels never released</td>
+                                <td><strong>Evaluation</strong></td>
+                                <td>nuScenes val split</td>
+                                <td>Held-out challenge evaluation</td>
+                                <td>This split must be treated as held out and used only to generate predictions for evaluation</td>
                             </tr>
                         </tbody>
                     </table>
 
+                    <p>
+                        The doScenes annotations provided in the repository correspond to scenes from these splits.
+                    </p>
+                    <p>
+                        Although the nuScenes validation split includes ground-truth annotations, it must be treated as a held-out
+                        test set for the purposes of this challenge.
+                    </p>
+
+                    <h3>Fair Evaluation Requirements</h3>
+                    <p>To ensure fair evaluation:</p>
+                    <ul>
+                        <li>Ground-truth future trajectories from the validation split must not be used during training.</li>
+                        <li>The validation split must be used only for generating predictions for evaluation.</li>
+                        <li>Participants must train their models exclusively on the nuScenes train split.</li>
+                        <li>Predictions must be generated for the nuScenes val split and submitted for evaluation.</li>
+                        <li>Teams are expected to submit reproducible code that adheres to this protocol.</li>
+                    </ul>
+
                     <div class="warning">
-                        Test labels are not shared. Only prediction uploads are evaluated, and scores are returned within 24 hours.
+                        The challenge is governed by a reproducibility and fair-use policy. Any method that uses validation future
+                        trajectories during training is considered out of protocol.
                     </div>
+
+                    <h3>Required Inputs</h3>
+                    <p>
+                        All required inputs for prediction, including historical trajectories, sensor data, maps, and language
+                        instructions, can be obtained by combining the standard nuScenes dataset with the doScenes annotation files
+                        provided in the repository.
+                    </p>
 
                     <h2 id="submission">Submission Instructions</h2>
 
@@ -835,7 +854,15 @@
                         <li>Prediction CSV file in the required format</li>
                         <li>Public code repository link</li>
                         <li>Paper PDF link</li>
+                        <li>Submitted papers are encouraged to follow the CVPR paper format</li>
                     </ul>
+
+                    <h3>Workshop Participation</h3>
+                    <p>
+                        Participation in the workshop is not required in order to complete the challenge. However, teams
+                        are encouraged to attend if possible. Details about online participation will be posted once that
+                        information becomes available.
+                    </p>
 
                     <h3>Key Dates</h3>
                     <table class="schedule-table">
