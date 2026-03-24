@@ -447,6 +447,34 @@
             margin-top: 1rem;
         }
 
+        .faq-list {
+            display: grid;
+            gap: 1rem;
+            margin: 1.5rem 0 2rem;
+        }
+
+        .faq-list details {
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            background: #fbfaf7;
+            padding: 1rem 1.2rem;
+        }
+
+        .faq-list summary {
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--ink);
+            list-style: none;
+        }
+
+        .faq-list summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .faq-list details p {
+            margin: 0.9rem 0 0;
+        }
+
         .contact-row {
             display: flex;
             gap: 0.6rem;
@@ -891,6 +919,89 @@
                             </tr>
                         </tbody>
                     </table>
+
+                    <h3>FAQ</h3>
+                    <div class="faq-list">
+                        <details>
+                            <summary>Do I need to attend the workshop to participate in the challenge?</summary>
+                            <p>
+                                No. Participation in the workshop is not required in order to complete the challenge, although
+                                teams are encouraged to attend if possible.
+                            </p>
+                        </details>
+                        <details>
+                            <summary>Which dataset splits should be used for training and evaluation?</summary>
+                            <p>
+                                Models must be trained on the nuScenes train split. Predictions should then be generated for the
+                                nuScenes val split, which must be treated as held out for challenge evaluation.
+                            </p>
+                        </details>
+                        <details>
+                            <summary>Can ground-truth future trajectories from the validation split be used during training?</summary>
+                            <p>
+                                No. Ground-truth future trajectories from the validation split must not be used during training.
+                            </p>
+                        </details>
+                        <details>
+                            <summary>What do I need to include with my submission?</summary>
+                            <p>
+                                Submissions should include a prediction CSV file in the required format, a public code repository
+                                link, and a paper PDF link. Submitted papers are encouraged to follow the CVPR paper format.
+                            </p>
+                        </details>
+                        <details>
+                            <summary>Where do the required inputs for prediction come from?</summary>
+                            <p>
+                                Required inputs can be assembled by combining the standard nuScenes dataset with the doScenes
+                                annotation files provided in the repository.
+                            </p>
+                        </details>
+                        <details>
+                            <summary>How do I get started with the doScenes dataset?</summary>
+                            <p>
+                                doScenes is an annotation layer built on top of the nuScenes dataset. The provided CSV files
+                                contain instruction annotations that must be used alongside the original nuScenes data.
+                            </p>
+                            <p>
+                                To use doScenes, each annotation must be aligned with a corresponding nuScenes sample using the
+                                provided tokens. Once aligned, participants can load the associated sensor data, such as camera
+                                images and ego pose, through the nuScenes API and pair it with the instruction.
+                            </p>
+                            <p>A typical workflow is:</p>
+                            <ul>
+                                <li>Read a row from the doScenes CSV.</li>
+                                <li>Use the sample or scene token to query nuScenes.</li>
+                                <li>Load the corresponding sensor data.</li>
+                                <li>Pair the sensor data with the instruction for training or evaluation.</li>
+                            </ul>
+                            <p>
+                                A reference dataloader is currently in development and will be added to the repository once it
+                                is available.
+                            </p>
+                        </details>
+                        <details>
+                            <summary>Can I use additional datasets or pretrained models?</summary>
+                            <p>
+                                Yes. Participants may use additional datasets and pretrained models, including models derived
+                                from nuScenes, provided that no information from the nuScenes validation split is used during
+                                training in any form.
+                            </p>
+                            <p>External or auxiliary data is permitted under the following conditions:</p>
+                            <ul>
+                                <li>External datasets are allowed as long as they do not include validation split data.</li>
+                                <li>Pretrained models are allowed, but they must not be trained on the nuScenes validation split.</li>
+                                <li>Auxiliary training data is permitted, provided the evaluation protocol is respected.</li>
+                            </ul>
+                            <p>
+                                Some pretrained models, especially those trained on nuScenes, may have used the validation split
+                                during training. This would constitute a violation of the challenge protocol.
+                            </p>
+                            <p>
+                                Participants are responsible for verifying and clearly documenting their data sources and training
+                                procedures.
+                            </p>
+                        </details>
+                    </div>
 
                     <h3>Ethical Considerations</h3>
                     <p>
