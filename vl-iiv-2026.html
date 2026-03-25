@@ -192,6 +192,67 @@ title: VL-IIV 2026 Workshop
   font-size: 0.82rem;
   margin-top: 3px;
 }
+
+.schedule-note {
+  background: var(--bg-light);
+  border-left: 3px solid var(--secondary-color);
+  border-radius: 4px;
+  padding: 10px 16px;
+  font-size: 0.88rem;
+  color: var(--text-light);
+  margin-bottom: 20px;
+}
+.schedule-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.schedule-table tr {
+  border-bottom: 1px solid var(--border-color);
+}
+.schedule-table tr:last-child {
+  border-bottom: none;
+}
+.schedule-table tr:hover {
+  background: var(--bg-light);
+}
+.schedule-table td {
+  padding: 13px 12px;
+  vertical-align: top;
+  font-size: 0.92rem;
+}
+.schedule-time {
+  white-space: nowrap;
+  font-weight: 600;
+  color: var(--primary-color);
+  width: 110px;
+  font-variant-numeric: tabular-nums;
+}
+.schedule-type {
+  width: 140px;
+}
+.schedule-badge {
+  display: inline-block;
+  padding: 3px 9px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+.badge-welcome   { background: #e8f0fe; color: #1a56db; }
+.badge-talk      { background: #fef3c7; color: #92400e; }
+.badge-break     { background: #f3f4f6; color: #6b7280; }
+.badge-challenge { background: #d1fae5; color: #065f46; }
+.badge-oral      { background: #ede9fe; color: #5b21b6; }
+.badge-closing   { background: #fee2e2; color: #991b1b; }
+.schedule-title {
+  font-weight: 500;
+  color: var(--text-color);
+}
+.schedule-speaker {
+  font-size: 0.83rem;
+  color: var(--text-light);
+  margin-top: 3px;
+}
 </style>
 
 <div class="workshop-hero">
@@ -274,7 +335,91 @@ title: VL-IIV 2026 Workshop
 
   <section class="workshop-section" id="schedule">
     <h2>Schedule</h2>
-    <div class="tba-box">Workshop schedule to be announced.</div>
+    <p class="schedule-note">Tentative half-day schedule. Exact start time and room TBA pending IEEE IV 2026 program release.</p>
+    <table class="schedule-table">
+      <tbody>
+        <tr>
+          <td class="schedule-time">+0:00</td>
+          <td class="schedule-type"><span class="schedule-badge badge-welcome">Welcome</span></td>
+          <td>
+            <div class="schedule-title">Opening Remarks</div>
+            <div class="schedule-speaker">Prof. Ross Greer &amp; Prof. Mohan Trivedi</div>
+          </td>
+          <td class="schedule-time" style="text-align:right; color: var(--text-light); font-weight:400;">15 min</td>
+        </tr>
+        <tr>
+          <td class="schedule-time">+0:15</td>
+          <td class="schedule-type"><span class="schedule-badge badge-talk">Invited Talk</span></td>
+          <td>
+            <div class="schedule-title">TBA</div>
+            <div class="schedule-speaker">Mustafa Bal &mdash; NomadicML</div>
+          </td>
+          <td class="schedule-time" style="text-align:right; color: var(--text-light); font-weight:400;">25 min</td>
+        </tr>
+        <tr>
+          <td class="schedule-time">+0:40</td>
+          <td class="schedule-type"><span class="schedule-badge badge-talk">Invited Talk</span></td>
+          <td>
+            <div class="schedule-title">TBA</div>
+            <div class="schedule-speaker">Speaker TBA</div>
+          </td>
+          <td class="schedule-time" style="text-align:right; color: var(--text-light); font-weight:400;">25 min</td>
+        </tr>
+        <tr>
+          <td class="schedule-time">+1:05</td>
+          <td class="schedule-type"><span class="schedule-badge badge-talk">Invited Talk</span></td>
+          <td>
+            <div class="schedule-title">TBA</div>
+            <div class="schedule-speaker">Speaker TBA</div>
+          </td>
+          <td class="schedule-time" style="text-align:right; color: var(--text-light); font-weight:400;">25 min</td>
+        </tr>
+        <tr>
+          <td class="schedule-time">+1:30</td>
+          <td class="schedule-type"><span class="schedule-badge badge-break">Break</span></td>
+          <td>
+            <div class="schedule-title">Coffee Break</div>
+          </td>
+          <td class="schedule-time" style="text-align:right; color: var(--text-light); font-weight:400;">15 min</td>
+        </tr>
+        <tr>
+          <td class="schedule-time">+1:45</td>
+          <td class="schedule-type"><span class="schedule-badge badge-talk">Invited Talk</span></td>
+          <td>
+            <div class="schedule-title">TBA</div>
+            <div class="schedule-speaker">Speaker TBA</div>
+          </td>
+          <td class="schedule-time" style="text-align:right; color: var(--text-light); font-weight:400;">25 min</td>
+        </tr>
+        <tr>
+          <td class="schedule-time">+2:10</td>
+          <td class="schedule-type"><span class="schedule-badge badge-challenge">Challenge</span></td>
+          <td>
+            <div class="schedule-title">doScenes Instructed Driving Challenge — Results &amp; Top Team Presentations</div>
+            <div class="schedule-speaker">Challenge leads: Kianna Ng, Angel Martinez, Parthib Roy</div>
+          </td>
+          <td class="schedule-time" style="text-align:right; color: var(--text-light); font-weight:400;">40 min</td>
+        </tr>
+        <tr>
+          <td class="schedule-time">+2:50</td>
+          <td class="schedule-type"><span class="schedule-badge badge-oral">Oral Papers</span></td>
+          <td>
+            <div class="schedule-title">Oral Paper Presentations</div>
+            <div class="schedule-speaker">2&ndash;3 selected IV workshop papers &mdash; 15 min each</div>
+          </td>
+          <td class="schedule-time" style="text-align:right; color: var(--text-light); font-weight:400;">30&ndash;45 min</td>
+        </tr>
+        <tr>
+          <td class="schedule-time">+3:35</td>
+          <td class="schedule-type"><span class="schedule-badge badge-closing">Closing</span></td>
+          <td>
+            <div class="schedule-title">Closing Remarks &amp; Awards</div>
+            <div class="schedule-speaker">Organizers</div>
+          </td>
+          <td class="schedule-time" style="text-align:right; color: var(--text-light); font-weight:400;">10 min</td>
+        </tr>
+      </tbody>
+    </table>
   </section>
 
   <section class="workshop-section" id="organizers">
