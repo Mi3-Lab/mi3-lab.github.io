@@ -1,0 +1,312 @@
+---
+layout: default
+title: VL-IIV 2026 Workshop
+---
+
+<style>
+.workshop-hero {
+  background: linear-gradient(135deg, var(--primary-color) 0%, #004080 100%);
+  color: white;
+  padding: 60px 0 50px;
+  margin-bottom: 0;
+}
+.workshop-hero h1 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: 10px;
+}
+.workshop-hero .workshop-subtitle {
+  font-size: 1.05rem;
+  color: var(--secondary-color);
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.workshop-hero .workshop-date {
+  font-size: 0.95rem;
+  opacity: 0.85;
+}
+.workshop-nav {
+  background: var(--primary-color);
+  border-top: 1px solid rgba(255,255,255,0.1);
+  position: sticky;
+  top: var(--header-height);
+  z-index: 100;
+}
+.workshop-nav ul {
+  list-style: none;
+  display: flex;
+  gap: 0;
+  padding: 0;
+  margin: 0;
+  overflow-x: auto;
+}
+.workshop-nav ul li a {
+  display: block;
+  padding: 14px 20px;
+  color: rgba(255,255,255,0.8);
+  font-size: 0.88rem;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: color var(--transition), background var(--transition);
+}
+.workshop-nav ul li a:hover {
+  color: white;
+  background: rgba(255,255,255,0.08);
+}
+.workshop-section {
+  padding: 50px 0 20px;
+}
+.workshop-section h2 {
+  color: var(--primary-color);
+  font-size: 1.4rem;
+  border-bottom: 2px solid var(--secondary-color);
+  padding-bottom: 10px;
+  margin-bottom: 24px;
+}
+.workshop-section p {
+  color: var(--text-color);
+  line-height: 1.75;
+  margin-bottom: 16px;
+}
+.topics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 12px;
+  margin-top: 8px;
+}
+.topic-item {
+  background: var(--bg-light);
+  border-left: 3px solid var(--secondary-color);
+  border-radius: 4px;
+  padding: 10px 14px;
+  font-size: 0.92rem;
+  color: var(--text-color);
+}
+.tba-box {
+  background: var(--bg-light);
+  border: 1px dashed var(--border-color);
+  border-radius: 8px;
+  padding: 28px;
+  text-align: center;
+  color: var(--text-light);
+  font-size: 0.95rem;
+}
+.organizers-group {
+  margin-bottom: 32px;
+}
+.organizers-group h3 {
+  font-size: 1rem;
+  color: var(--primary-color);
+  margin-bottom: 14px;
+}
+.organizer-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 10px;
+}
+.organizer-card {
+  background: var(--bg-light);
+  border-radius: 6px;
+  padding: 12px 16px;
+  font-size: 0.9rem;
+}
+.organizer-card .org-name {
+  font-weight: 600;
+  color: var(--primary-color);
+}
+.organizer-card .org-affil {
+  color: var(--text-light);
+  font-size: 0.85rem;
+  margin-top: 2px;
+}
+.challenge-callout {
+  background: linear-gradient(135deg, #003366 0%, #004080 100%);
+  color: white;
+  border-radius: 10px;
+  padding: 30px 32px;
+  margin: 8px 0 24px;
+}
+.challenge-callout h3 {
+  color: var(--secondary-color);
+  margin-bottom: 10px;
+  font-size: 1.1rem;
+}
+.challenge-callout p {
+  color: rgba(255,255,255,0.9);
+  margin-bottom: 16px;
+}
+.challenge-callout a.btn {
+  display: inline-block;
+  background: var(--secondary-color);
+  color: var(--primary-color);
+  font-weight: 700;
+  padding: 10px 22px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  transition: opacity var(--transition);
+}
+.challenge-callout a.btn:hover { opacity: 0.85; }
+.contact-box {
+  background: var(--bg-light);
+  border-radius: 8px;
+  padding: 18px 22px;
+  font-size: 0.95rem;
+  color: var(--text-color);
+}
+</style>
+
+<div class="workshop-hero">
+  <div class="container">
+    <p class="workshop-subtitle">2nd Edition &mdash; IEEE Intelligent Vehicles Symposium 2026</p>
+    <h1>Vision, Language, and Multimodal Human Instructions<br>for Interactive Intelligent Vehicles</h1>
+    <p class="workshop-date">Date and Time TBA &nbsp;&bull;&nbsp; VL-IIV 2026</p>
+  </div>
+</div>
+
+<nav class="workshop-nav">
+  <div class="container">
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#challenge">Challenge</a></li>
+      <li><a href="#topics">Topics</a></li>
+      <li><a href="#speakers">Speakers</a></li>
+      <li><a href="#schedule">Schedule</a></li>
+      <li><a href="#organizers">Organizers</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="container">
+
+  <section class="workshop-section" id="about">
+    <h2>About the Workshop</h2>
+    <p>
+      The <strong>Vision, Language, and Multimodal Human Instructions for Interactive Intelligent Vehicles (VL-IIV 2026)</strong> workshop explores the intersection of computer vision, language understanding, and multimodal reasoning for human-in-the-loop autonomous driving. The workshop focuses on systems and datasets that allow vehicles to perceive, interpret, and respond to visual and linguistic instructions.
+    </p>
+    <p>
+      Interactive autonomous systems capable of interpreting multimodal human instructions are critical to the next generation of safe and trustworthy transportation. This workshop promotes human-centered autonomy, reducing risks from fully unsupervised systems while enhancing transparency and user control.
+    </p>
+  </section>
+
+  <section class="workshop-section" id="challenge">
+    <h2>doScenes Instructed Driving Challenge</h2>
+    <div class="challenge-callout">
+      <h3>VL-IIV 2026 hosts the doScenes Instructed Driving Challenge</h3>
+      <p>
+        The challenge evaluates how well vision-language models predict trajectories conditioned on human driving instructions. The dataset contains scene-level captions, driver intent labels, and natural-language instructions for upcoming maneuvers — all human-generated and labeled by multiple annotators, creating a diverse set of descriptors mapping to the same maneuver.
+      </p>
+      <p>
+        Participants predict the vehicle's future trajectory conditioned on any combination of (1)&nbsp;visual scene input (multi-camera), (2)&nbsp;language instruction, and (3)&nbsp;scene context (history&nbsp;+&nbsp;map), evaluated using displacement error, visualization, and explainability.
+      </p>
+      <a href="/doScenes_challenge" class="btn">View Challenge Details &rarr;</a>
+    </div>
+  </section>
+
+  <section class="workshop-section" id="topics">
+    <h2>Topics</h2>
+    <p>We welcome contributions with a strong focus on — but not limited to — the following topics:</p>
+    <div class="topics-grid">
+      <div class="topic-item">Human-in-the-loop and instructed autonomy</div>
+      <div class="topic-item">Representation learning and foundation models for embodied, instruction-conditioned behavior</div>
+      <div class="topic-item">Multimodal learning and grounding (gesture, speech, gaze)</div>
+      <div class="topic-item">Multi-agent interactions</div>
+      <div class="topic-item">Vision-language models for driving and robotics</div>
+      <div class="topic-item">Scene understanding for control transitions</div>
+      <div class="topic-item">Safety, trust, explainability, and transparency in human-interactive AV systems</div>
+      <div class="topic-item">Datasets, benchmarks, and evaluation metrics for interactive autonomy</div>
+      <div class="topic-item">Generative and contrastive modeling for multimodal control</div>
+    </div>
+  </section>
+
+  <section class="workshop-section" id="speakers">
+    <h2>Invited Speakers</h2>
+    <div class="tba-box">Workshop speakers to be announced.</div>
+  </section>
+
+  <section class="workshop-section" id="schedule">
+    <h2>Schedule</h2>
+    <div class="tba-box">Workshop schedule to be announced.</div>
+  </section>
+
+  <section class="workshop-section" id="organizers">
+    <h2>Organizers</h2>
+
+    <div class="organizers-group">
+      <h3>Lead Organizers</h3>
+      <div class="organizer-list">
+        <div class="organizer-card">
+          <div class="org-name">Prof. Ross Greer</div>
+          <div class="org-affil">University of California, Merced</div>
+        </div>
+        <div class="organizer-card">
+          <div class="org-name">Prof. Mohan Trivedi</div>
+          <div class="org-affil">University of California, San Diego</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="organizers-group">
+      <h3>Organizing Committee &amp; Challenge Leads</h3>
+      <div class="organizer-list">
+        <div class="organizer-card">
+          <div class="org-name">Max Ronecker</div>
+          <div class="org-affil">TU Graz</div>
+        </div>
+        <div class="organizer-card">
+          <div class="org-name">Walter Zimmer</div>
+          <div class="org-affil">University of Sydney / UCLA</div>
+        </div>
+        <div class="organizer-card">
+          <div class="org-name">Rui Song</div>
+          <div class="org-affil">UCLA</div>
+        </div>
+        <div class="organizer-card">
+          <div class="org-name">Kianna Ng</div>
+          <div class="org-affil">UC Merced</div>
+        </div>
+        <div class="organizer-card">
+          <div class="org-name">Angel Martinez</div>
+          <div class="org-affil">UC Merced</div>
+        </div>
+        <div class="organizer-card">
+          <div class="org-name">Maitrayee Keskar</div>
+          <div class="org-affil">UC San Diego</div>
+        </div>
+        <div class="organizer-card">
+          <div class="org-name">Anas Saeed</div>
+          <div class="org-affil">Bonsai Robotics</div>
+        </div>
+        <div class="organizer-card">
+          <div class="org-name">Erika Maquiling</div>
+          <div class="org-affil">UC Merced</div>
+        </div>
+        <div class="organizer-card">
+          <div class="org-name">Edmund Chao</div>
+          <div class="org-affil">UCLA</div>
+        </div>
+        <div class="organizer-card">
+          <div class="org-name">Giovanni Tapia Lopez</div>
+          <div class="org-affil">UC Merced</div>
+        </div>
+        <div class="organizer-card">
+          <div class="org-name">Marcus Blennemann</div>
+          <div class="org-affil">UC San Diego</div>
+        </div>
+        <div class="organizer-card">
+          <div class="org-name">Afnan Alofi</div>
+          <div class="org-affil">Princess Nourah bint Abdulrahman University</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="workshop-section" id="contact">
+    <h2>Contact</h2>
+    <div class="contact-box">
+      For inquiries, please contact <a href="mailto:rossgreer@ucmerced.edu">rossgreer@ucmerced.edu</a>.
+    </div>
+  </section>
+
+</div>
