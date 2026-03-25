@@ -352,10 +352,81 @@ section:nth-child(even) {
   margin-top: 10px;
   padding-top: 10px;
   border-top: 1px solid #e0e0e0;
+  font-family: Georgia, 'Times New Roman', serif;
   font-size: 0.9em;
   font-weight: 400;
   color: #444;
-  line-height: 1.5;
+  line-height: 1.6;
+}
+
+.highlights-list li details .highlight-detail a {
+  color: var(--secondary-color);
+  text-decoration: underline;
+}
+
+/* Events Page */
+.events-section {
+  margin-bottom: 50px;
+}
+
+.events-section h2 {
+  color: var(--primary-color);
+  border-bottom: 2px solid var(--secondary-color);
+  padding-bottom: 10px;
+  margin-bottom: 24px;
+}
+
+.event-card {
+  background: white;
+  border-radius: 8px;
+  border-left: 4px solid var(--secondary-color);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  padding: 20px 24px;
+  margin-bottom: 16px;
+}
+
+.event-meta {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 8px;
+}
+
+.event-venue {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--secondary-color);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.event-date {
+  font-size: 0.82rem;
+  color: #888;
+}
+
+.event-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--primary-color);
+  margin: 0 0 8px;
+}
+
+.event-title a {
+  color: var(--primary-color);
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  transition: border-color var(--transition);
+}
+
+.event-title a:hover {
+  border-bottom-color: var(--secondary-color);
+}
+
+.event-description {
+  font-size: 0.92rem;
+  color: #555;
+  line-height: 1.6;
+  margin: 0;
 }
 
 /* Highlights & Gallery Page */

@@ -30,9 +30,11 @@ navigation:
     url: /people
   - title: Publications
     url: /publications
+  - title: Events
+    url: /events
   - title: Prospective Members
     url: /prospective
-  - title: Highlights & Gallery
+  - title: Highlights, News & Press
     url: /gallery
   - title: doScenes Challenge
     url: /doScenes_challenge
