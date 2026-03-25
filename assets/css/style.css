@@ -329,6 +329,35 @@ section:nth-child(even) {
   border-bottom-color: var(--secondary-color);
 }
 
+.highlights-list li details summary {
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.highlights-list li details summary::after {
+  content: "▸";
+  font-size: 0.75em;
+  transition: transform 0.2s;
+  color: var(--secondary-color);
+}
+
+.highlights-list li details[open] summary::after {
+  transform: rotate(90deg);
+}
+
+.highlights-list li details .highlight-detail {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid #e0e0e0;
+  font-size: 0.9em;
+  font-weight: 400;
+  color: #444;
+  line-height: 1.5;
+}
+
 /* Highlights & Gallery Page */
 .highlights-page-section,
 .gallery-page-section {
