@@ -959,24 +959,8 @@
                         <details>
                             <summary>How do I get started with the doScenes dataset?</summary>
                             <p>
-                                doScenes is an annotation layer built on top of the nuScenes dataset. The provided CSV files
-                                contain instruction annotations that must be used alongside the original nuScenes data.
-                            </p>
-                            <p>
-                                To use doScenes, each annotation must be aligned with a corresponding nuScenes sample using the
-                                provided tokens. Once aligned, participants can load the associated sensor data, such as camera
-                                images and ego pose, through the nuScenes API and pair it with the instruction.
-                            </p>
-                            <p>A typical workflow is:</p>
-                            <ul>
-                                <li>Read a row from the doScenes CSV.</li>
-                                <li>Use the sample or scene token to query nuScenes.</li>
-                                <li>Load the corresponding sensor data.</li>
-                                <li>Pair the sensor data with the instruction for training or evaluation.</li>
-                            </ul>
-                            <p>
-                                A reference dataloader is currently in development and will be added to the repository once it
-                                is available.
+                                A reference dataloader is available inside the doScenes repository to help participants get
+                                started with loading the annotations together with the underlying nuScenes data.
                             </p>
                         </details>
                         <details>
