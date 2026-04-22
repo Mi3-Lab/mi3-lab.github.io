@@ -761,8 +761,8 @@
                     <h2 id="data">Dataset & Data Splits</h2>
 
                     <p>
-                        doScenes extends the nuScenes training and validation splits with human-authored instructions. Instructions
-                        are written by multiple annotators to capture natural variation in phrasing.
+                        doScenes extends the nuScenes v1.0-trainval and v1.0-test splits with human-authored instructions.
+                        Instructions are written by multiple annotators to capture natural variation in phrasing.
                     </p>
                     <p>Instructions cover a variety of maneuvers including:</p>
                     <ul>
@@ -794,6 +794,10 @@
                                 <td>nuScenes</td>
                             </tr>
                             <tr>
+                                <td>Allowed nuScenes viewpoint</td>
+                                <td>Egocentric point of view only</td>
+                            </tr>
+                            <tr>
                                 <td>Number of scenes</td>
                                 <td>850</td>
                             </tr>
@@ -814,29 +818,33 @@
 
                     <h3>Dataset Splits and Evaluation Protocol</h3>
                     <p>
-                        The doScenes benchmark uses the standard nuScenes dataset splits as the basis for training and evaluation.
+                        The doScenes benchmark uses the standard nuScenes dataset splits as the basis for training, validation,
+                        and website evaluation.
                     </p>
                     <table class="data-splits-table">
                         <thead>
                             <tr>
                                 <th>Split</th>
                                 <th>Source</th>
+                                <th>Scenes</th>
                                 <th>Challenge Role</th>
                                 <th>Protocol</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td><strong>Training</strong></td>
-                                <td>nuScenes train split</td>
-                                <td>Model training</td>
-                                <td>Models must be trained exclusively on this split</td>
+                                <td><strong>Training / Validation</strong></td>
+                                <td>nuScenes v1.0-trainval split</td>
+                                <td>850</td>
+                                <td>Model training and local validation</td>
+                                <td>Models may use this split for training and validation</td>
                             </tr>
                             <tr>
-                                <td><strong>Evaluation</strong></td>
-                                <td>nuScenes val split</td>
-                                <td>Held-out challenge evaluation</td>
-                                <td>This split must be treated as held out and used only to generate predictions for evaluation</td>
+                                <td><strong>Website Testing</strong></td>
+                                <td>nuScenes v1.0-test split</td>
+                                <td>150</td>
+                                <td>Evaluations on the website</td>
+                                <td>This split is used for submitted predictions and website leaderboard evaluation</td>
                             </tr>
                         </tbody>
                     </table>
@@ -844,23 +852,19 @@
                     <p>
                         The doScenes annotations provided in the repository correspond to scenes from these splits.
                     </p>
-                    <p>
-                        Although the nuScenes validation split includes ground-truth annotations, it must be treated as a held-out
-                        test set for the purposes of this challenge.
-                    </p>
-
                     <h3>Fair Evaluation Requirements</h3>
                     <p>To ensure fair evaluation:</p>
                     <ul>
-                        <li>Ground-truth future trajectories from the validation split must not be used during training.</li>
-                        <li>The validation split must be used only for generating predictions for evaluation.</li>
-                        <li>Participants must train their models exclusively on the nuScenes train split.</li>
-                        <li>Predictions must be generated for the nuScenes val split and submitted for evaluation.</li>
+                        <li>Participants may use the nuScenes v1.0-trainval split for training and validation.</li>
+                        <li>The nuScenes v1.0-test split must be used only for website evaluation submissions.</li>
+                        <li>Ground-truth future trajectories from the nuScenes v1.0-test split must not be used during training.</li>
+                        <li>Models must use only egocentric point of view data from nuScenes.</li>
+                        <li>Predictions must be generated for the nuScenes v1.0-test split and submitted for website evaluation.</li>
                         <li>Teams are expected to submit reproducible code that adheres to this protocol.</li>
                     </ul>
 
                     <div class="warning">
-                        The challenge is governed by a reproducibility and fair-use policy. Any method that uses validation future
+                        The challenge is governed by a reproducibility and fair-use policy. Any method that uses test-set future
                         trajectories during training is considered out of protocol.
                     </div>
 
@@ -868,7 +872,8 @@
                     <p>
                         All required inputs for prediction, including historical trajectories, sensor data, maps, and language
                         instructions, can be obtained by combining the standard nuScenes dataset with the doScenes annotation files
-                        provided in the repository.
+                        provided in the repository. Participants should use only the egocentric point of view data from nuScenes
+                        when preparing inputs for this challenge.
                     </p>
 
                     <h2 id="submission">Submission Instructions</h2>
@@ -932,14 +937,16 @@
                         <details>
                             <summary>Which dataset splits should be used for training and evaluation?</summary>
                             <p>
-                                Models must be trained on the nuScenes train split. Predictions should then be generated for the
-                                nuScenes val split, which must be treated as held out for challenge evaluation.
+                                For training and validation, participants can use the nuScenes v1.0-trainval split, which contains
+                                850 scenes. For testing and evaluations on the website, participants should use the nuScenes
+                                v1.0-test split, which contains 150 scenes.
                             </p>
                         </details>
                         <details>
-                            <summary>Can ground-truth future trajectories from the validation split be used during training?</summary>
+                            <summary>Can ground-truth future trajectories from the test split be used during training?</summary>
                             <p>
-                                No. Ground-truth future trajectories from the validation split must not be used during training.
+                                No. Ground-truth future trajectories from the nuScenes v1.0-test split must not be used during
+                                training.
                             </p>
                         </details>
                         <details>
@@ -953,7 +960,8 @@
                             <summary>Where do the required inputs for prediction come from?</summary>
                             <p>
                                 Required inputs can be assembled by combining the standard nuScenes dataset with the doScenes
-                                annotation files provided in the repository.
+                                annotation files provided in the repository. Only egocentric point of view data from nuScenes
+                                should be used.
                             </p>
                         </details>
                         <details>
@@ -967,17 +975,17 @@
                             <summary>Can I use additional datasets or pretrained models?</summary>
                             <p>
                                 Yes. Participants may use additional datasets and pretrained models, including models derived
-                                from nuScenes, provided that no information from the nuScenes validation split is used during
+                                from nuScenes, provided that no information from the nuScenes v1.0-test split is used during
                                 training in any form.
                             </p>
                             <p>External or auxiliary data is permitted under the following conditions:</p>
                             <ul>
-                                <li>External datasets are allowed as long as they do not include validation split data.</li>
-                                <li>Pretrained models are allowed, but they must not be trained on the nuScenes validation split.</li>
+                                <li>External datasets are allowed as long as they do not include test split data.</li>
+                                <li>Pretrained models are allowed, but they must not be trained on the nuScenes v1.0-test split.</li>
                                 <li>Auxiliary training data is permitted, provided the evaluation protocol is respected.</li>
                             </ul>
                             <p>
-                                Some pretrained models, especially those trained on nuScenes, may have used the validation split
+                                Some pretrained models, especially those trained on nuScenes, may have used the test split
                                 during training. This would constitute a violation of the challenge protocol.
                             </p>
                             <p>
