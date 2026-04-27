@@ -861,8 +861,26 @@ img.person-avatar {
 
 /* Responsive */
 @media (max-width: 768px) {
+  :root {
+    --header-height: 56px;
+  }
+
+  .logo-text {
+    font-size: 1.6rem;
+  }
+
+  .logo-text sup {
+    font-size: 0.8rem;
+  }
+
+  .logo-subtitle {
+    font-size: 1.2rem;
+  }
+
   .nav-toggle {
     display: flex;
+    gap: 4px;
+    padding: 4px;
   }
 
   .nav-links {
@@ -872,8 +890,8 @@ img.person-avatar {
     right: 0;
     background: var(--primary-color);
     flex-direction: column;
-    padding: 20px;
-    gap: 15px;
+    padding: 12px 20px 16px;
+    gap: 10px;
     display: none;
   }
 
