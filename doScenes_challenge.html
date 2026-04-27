@@ -640,8 +640,11 @@
                 <div class="section-content">
                     <p>
                         The doScenes Instructed Driving Challenge evaluates whether natural language instructions can improve
-                        trajectory prediction for autonomous driving. Traditional models rely on past motion and scene context;
-                        doScenes adds human-authored intent descriptions so models can predict with privileged information.
+                        trajectory prediction for autonomous driving. Traditional trajectory prediction methods on datasets
+                        such as nuScenes rely on historical motion and scene context, yet human drivers often know their
+                        intended maneuver before executing it. The doScenes dataset augments nuScenes with human-authored
+                        natural language instructions describing upcoming driving maneuvers, enabling models to incorporate
+                        this privileged information.
                     </p>
                     <div class="quote-box">
                         Can models that incorporate text descriptions of intended maneuvers achieve better prediction accuracy
@@ -649,47 +652,73 @@
                     </div>
 
                     <p>
-                        This challenge is built on doScenes, an instruction-augmented extension of nuScenes. Instructions cover
-                        maneuvers such as lane changes, turns, stopping, yielding, and speed adjustments, with multiple annotators
-                        providing diverse phrasings.
+                        Trajectory prediction, the task of forecasting future vehicle positions from observed history and
+                        environmental context, is fundamental to autonomous driving. Large-scale real-world benchmarks such as
+                        nuScenes have driven rapid progress by providing multi-modal sensor data, high-definition maps, and
+                        annotations across 1,000 driving scenes collected from Boston and Singapore.
+                    </p>
+                    <p>
+                        Despite this progress, a central assumption remains largely unchanged: future motion is predicted using
+                        only observed history and scene context. This is appropriate for predicting other agents, but it is an
+                        artificial constraint when predicting the ego vehicle, where the intended maneuver may be known before
+                        execution. Natural language instructions such as "turn left at the next intersection" expose this intent
+                        and can reduce uncertainty in otherwise ambiguous scenarios.
+                    </p>
+                    <p>
+                        This challenge is built on doScenes, an instruction-augmented extension of nuScenes. All instructions are
+                        human-authored, with multiple annotators providing diverse phrasings for the same maneuver. This variation
+                        challenges models to condition on meaning rather than surface form.
                     </p>
 
                     <h3>Task Definition</h3>
-                    <p><strong>Given:</strong></p>
+                    <p><strong>For the Full Multimodal track, participants are given:</strong></p>
                     <ul>
-                        <li>Visual scene input from multiple cameras</li>
+                        <li>Visual scene input from permitted nuScenes cameras</li>
                         <li>Historical trajectory information (past 2 seconds)</li>
                         <li>High-definition map data</li>
                         <li>Natural language instruction describing the intended maneuver</li>
                     </ul>
                     <p>
-                        Participants must predict the ego vehicle’s future trajectory over the next 6 seconds. The key research
-                        question is whether models can effectively leverage the language instruction to improve prediction accuracy
-                        compared to baselines that use only visual, historical, and map information.
+                        Each sample provides 2 seconds of ground-truth history. Participants must generate one ego-vehicle
+                        trajectory for the next 6 seconds, sampled at 2 Hz for 12 future timesteps. Leaderboard evaluation uses
+                        single-shot prediction per sample; sliding-window evaluation is not used for official scoring.
+                    </p>
+                    <p>
+                        Evaluation is open-loop: models receive ground-truth history at inference time, and predicted trajectories
+                        are not fed back into the model for rollout or closed-loop scoring. The key research question is whether
+                        models can effectively leverage the language instruction to improve prediction accuracy compared to
+                        baselines that use the same non-language inputs.
                     </p>
 
                     <h3>Evaluation Metrics</h3>
                     <p>Submissions are evaluated using standard trajectory prediction metrics:</p>
                     <ul>
-                        <li><strong>Average Displacement Error (ADE):</strong> Mean L2 distance between predicted and ground-truth positions across all time steps.</li>
-                        <li><strong>Final Displacement Error (FDE):</strong> L2 distance between predicted and ground-truth positions at the final time step.</li>
-                        <li><strong>Instruction Conditioning Gain (Delta ADE):</strong> Improvement in ADE relative to a history-only baseline, measuring the benefit of incorporating language instructions.</li>
+                        <li><strong>Average Displacement Error (ADE):</strong> Mean L2 distance between predicted and ground-truth positions across all 12 predicted timesteps.</li>
+                        <li><strong>Final Displacement Error (FDE):</strong> L2 distance between predicted and ground-truth positions at the final timestep, 6 seconds into the future.</li>
+                        <li><strong>Instruction Conditioning Gain (&Delta;ADE):</strong> Improvement in ADE relative to the history-only baseline, measuring the benefit of incorporating language instructions.</li>
                     </ul>
-                    <p><strong>ADE reporting specification:</strong> ADE is computed as mean Average Displacement Error. We report the Q97.5-filtered mean, removing the top 2.5% highest-error scenes to avoid catastrophic outliers.</p>
+                    <p>
+                        ADE and FDE are computed per predicted trajectory, then averaged across all samples in the evaluated
+                        dataset. Each model must submit exactly one predicted trajectory per sample.
+                    </p>
                     <p>The Instruction Conditioning Gain is computed as:</p>
-                    <p><strong>Delta ADE = ADE<sub>baseline</sub> − ADE<sub>instruction</sub></strong> (1)</p>
-                    <p>Positive values indicate improvement from using language instructions.</p>
+                    <p><strong>&Delta;ADE = ADE<sub>baseline</sub> − ADE<sub>instruction</sub></strong> (1)</p>
+                    <p>
+                        For official leaderboard reporting, the history-only baseline is defined per track: it uses the same
+                        non-language inputs and identical evaluation protocol except that no language instruction is provided.
+                        Participants must report ADE for the instruction-conditioned model, ADE for the baseline, and &Delta;ADE.
+                    </p>
 
                     <div class="callout">
-                        Positive Delta ADE indicates language improves trajectory prediction relative to the history-only baseline.
+                        Positive &Delta;ADE indicates language improves trajectory prediction relative to the history-only baseline.
                     </div>
 
                     <h3>Evaluation Tracks</h3>
                     <p>Participants may submit to one or more tracks:</p>
                     <ol class="tracks-grid">
-                        <li><strong>Full Multimodal:</strong> Uses all available inputs (cameras, history, map, and language instruction).</li>
-                        <li><strong>Language + History:</strong> Uses only historical trajectory and language instruction (no visual input).</li>
-                        <li><strong>Ablation:</strong> Participants report results with and without language conditioning to demonstrate the instruction benefit.</li>
+                        <li><strong>Full Multimodal:</strong> Uses cameras, 2 seconds of history, map data, and language instruction.</li>
+                        <li><strong>Language + History:</strong> Uses 2 seconds of history and language instruction only; visual input is not allowed.</li>
+                        <li><strong>Ablation:</strong> Participants must report both with-language and without-language results under the same protocol to demonstrate the instruction benefit.</li>
                     </ol>
 
                     <h3>Goals and Expected Outcomes</h3>
@@ -718,14 +747,14 @@
                                 <th>Track</th>
                                 <th>ADE</th>
                                 <th>FDE</th>
-                                <th>Delta ADE</th>
+                                <th>&Delta;ADE</th>
                                 <th>Submission Date</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr class="baseline-row">
                                 <td>—</td>
-                                <td><strong>History-Only</strong><span class="baseline-badge">NO LANGUAGE</span></td>
+                                <td><strong>History-Only Baseline</strong><span class="baseline-badge">NO LANGUAGE</span></td>
                                 <td>Full Multimodal</td>
                                 <td>2.879</td>
                                 <td>---</td>
@@ -756,13 +785,14 @@
                         </tbody>
                     </table>
 
-                    <p class="helper-text">Baselines are from the paper: Martinez-Sanchez et al., <em>Natural Language Instructions for Scene-Responsive Human-in-the-Loop Motion Planning in Autonomous Driving using Vision-Language-Action Models</em>, arXiv:2602.04184, 2026.</p>
+                    <p class="helper-text">Leaderboard scores use single-shot, open-loop evaluation with one 6-second trajectory per sample. Caption: “history-only baseline” denotes the matched no-language condition for the selected track. Baselines are from the paper: Martinez-Sanchez et al., <em>Natural Language Instructions for Scene-Responsive Human-in-the-Loop Motion Planning in Autonomous Driving using Vision-Language-Action Models</em>, arXiv:2602.04184, 2026.</p>
 
                     <h2 id="data">Dataset & Data Splits</h2>
 
                     <p>
-                        doScenes extends the nuScenes v1.0-trainval and v1.0-test splits with human-authored instructions.
-                        Instructions are written by multiple annotators to capture natural variation in phrasing.
+                        doScenes extends nuScenes with human-authored instruction annotations. Public challenge development
+                        uses the nuScenes v1.0-trainval split, while website leaderboard evaluation uses the nuScenes v1.0-test
+                        split. Instructions are written by multiple annotators to capture natural variation in phrasing.
                     </p>
                     <p>Instructions cover a variety of maneuvers including:</p>
                     <ul>
@@ -774,7 +804,9 @@
                     </ul>
                     <p>
                         The diversity of annotators ensures that models must handle natural variation in instruction phrasing, rather
-                        than memorizing specific templates.
+                        than memorizing specific templates. If multiple instructions are available for a scene, each instruction
+                        annotation is treated as a separate evaluation sample; participants submit one prediction for each
+                        instruction sample.
                     </p>
 
                     <h3>Dataset Statistics</h3>
@@ -794,12 +826,16 @@
                                 <td>nuScenes</td>
                             </tr>
                             <tr>
-                                <td>Allowed nuScenes viewpoint</td>
-                                <td>Egocentric point of view only</td>
+                                <td>Allowed nuScenes data</td>
+                                <td>Past or current nuScenes sensor, map, or metadata input, subject to track rules and no future leakage</td>
                             </tr>
                             <tr>
-                                <td>Number of scenes</td>
-                                <td>850</td>
+                                <td>Train/validation scenes</td>
+                                <td>~850</td>
+                            </tr>
+                            <tr>
+                                <td>Test scenes</td>
+                                <td>~150</td>
                             </tr>
                             <tr>
                                 <td>Instruction annotations</td>
@@ -813,8 +849,69 @@
                                 <td>Languages</td>
                                 <td>English</td>
                             </tr>
+                            <tr>
+                                <td>Sampling rate</td>
+                                <td>2 Hz</td>
+                            </tr>
                         </tbody>
                     </table>
+
+                    <h3>Annotation Statistics</h3>
+                    <table class="data-splits-table">
+                        <thead>
+                            <tr>
+                                <th>Category</th>
+                                <th>Count</th>
+                                <th>Percentage</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Total annotations</td>
+                                <td>3,924</td>
+                                <td>—</td>
+                            </tr>
+                            <tr>
+                                <td>Unique scenes</td>
+                                <td>854</td>
+                                <td>—</td>
+                            </tr>
+                            <tr>
+                                <td>Average annotations per scene</td>
+                                <td>4.6</td>
+                                <td>—</td>
+                            </tr>
+                            <tr>
+                                <td>Dynamic-referential (d)</td>
+                                <td>444</td>
+                                <td>11.3%</td>
+                            </tr>
+                            <tr>
+                                <td>Static-referential (s)</td>
+                                <td>787</td>
+                                <td>20.1%</td>
+                            </tr>
+                            <tr>
+                                <td>Mixed dynamic + static (ds)</td>
+                                <td>192</td>
+                                <td>4.9%</td>
+                            </tr>
+                            <tr>
+                                <td>Non-referential (None)</td>
+                                <td>2,501</td>
+                                <td>63.7%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p>
+                        doScenes provides controlled evaluation of instruction-conditioned trajectory prediction across
+                        grounded and non-grounded language. Dynamic-referential instructions are grounded in moving agents
+                        or temporal interactions, such as following the car ahead. Static-referential instructions are grounded
+                        in scene elements such as lanes, signs, or intersections. Mixed instructions combine both dynamic and
+                        static references, while non-referential instructions describe motion without explicitly grounding to
+                        scene entities, such as continuing straight or slowing down.
+                    </p>
+                    <p class="helper-text">Annotation statistics describe doScenes instruction annotations and may not exactly match the rounded nuScenes split counts shown above.</p>
 
                     <h3>Dataset Splits and Evaluation Protocol</h3>
                     <p>
@@ -835,16 +932,16 @@
                             <tr>
                                 <td><strong>Training / Validation</strong></td>
                                 <td>nuScenes v1.0-trainval split</td>
-                                <td>850</td>
+                                <td>~850</td>
                                 <td>Model training and local validation</td>
-                                <td>Models may use this split for training and validation</td>
+                                <td>Models may use this split for training, validation, and method development</td>
                             </tr>
                             <tr>
                                 <td><strong>Website Testing</strong></td>
                                 <td>nuScenes v1.0-test split</td>
-                                <td>150</td>
+                                <td>~150</td>
                                 <td>Evaluations on the website</td>
-                                <td>This split is used for submitted predictions and website leaderboard evaluation</td>
+                                <td>Use only to generate leaderboard submissions; test ground truth is not publicly available</td>
                             </tr>
                         </tbody>
                     </table>
@@ -852,28 +949,46 @@
                     <p>
                         The doScenes annotations provided in the repository correspond to scenes from these splits.
                     </p>
+                    <h3>Official Evaluation Protocol</h3>
+                    <ul>
+                        <li>Each sample uses 2 seconds of ground-truth history and 6 seconds of future prediction.</li>
+                        <li>Trajectories are sampled at 2 Hz, so each prediction contains 12 future positions.</li>
+                        <li>Leaderboard evaluation uses single-shot prediction per sample.</li>
+                        <li>Sliding-window evaluation is not used for official scoring.</li>
+                        <li>Evaluation is open-loop: ground-truth history is provided at inference time, and predictions are not rolled out or fed back into the model.</li>
+                        <li>Models must generate one trajectory per sample.</li>
+                    </ul>
+
                     <h3>Fair Evaluation Requirements</h3>
                     <p>To ensure fair evaluation:</p>
                     <ul>
                         <li>Participants may use the nuScenes v1.0-trainval split for training and validation.</li>
-                        <li>The nuScenes v1.0-test split must be used only for website evaluation submissions.</li>
-                        <li>Ground-truth future trajectories from the nuScenes v1.0-test split must not be used during training.</li>
-                        <li>Models must use only egocentric point of view data from nuScenes.</li>
+                        <li>The nuScenes v1.0-test split may be used only to generate website evaluation submissions, not for training, validation, model selection, or tuning.</li>
+                        <li>Ground-truth future trajectories from the nuScenes v1.0-test split must not be used for training, validation, tuning, model selection, or submission debugging.</li>
+                        <li>Test-set ground truth is not publicly available and must not be inferred, reconstructed, or used through any external source.</li>
+                        <li>Participants may use non-egocentric nuScenes data when it is allowed by the selected track, available at or before the prediction time, and does not reveal future information.</li>
                         <li>Predictions must be generated for the nuScenes v1.0-test split and submitted for website evaluation.</li>
                         <li>Teams are expected to submit reproducible code that adheres to this protocol.</li>
                     </ul>
 
                     <div class="warning">
                         The challenge is governed by a reproducibility and fair-use policy. Any method that uses test-set future
-                        trajectories during training is considered out of protocol.
+                        trajectories for training, validation, tuning, model selection, or submission debugging is considered
+                        out of protocol.
                     </div>
 
                     <h3>Required Inputs</h3>
                     <p>
                         All required inputs for prediction, including historical trajectories, sensor data, maps, and language
                         instructions, can be obtained by combining the standard nuScenes dataset with the doScenes annotation files
-                        provided in the repository. Participants should use only the egocentric point of view data from nuScenes
-                        when preparing inputs for this challenge.
+                        provided in the repository. Participants may use egocentric or non-egocentric nuScenes inputs when
+                        allowed by the selected track, provided the inputs are available at or before the prediction time and
+                        do not leak future information.
+                    </p>
+                    <p>
+                        Regardless of input representation, submission coordinates must be ego-centric coordinates in meters,
+                        expressed in the sample-time ego frame. The x-axis points forward from the ego vehicle and the y-axis
+                        points left. All submitted trajectories must follow this same coordinate convention.
                     </p>
 
                     <h2 id="submission">Submission Instructions</h2>
@@ -884,7 +999,7 @@
                     </div>
                     <h3>Submission Checklist</h3>
                     <ul>
-                        <li>Prediction CSV file in the required format</li>
+                        <li>ADE for the instruction-conditioned model, ADE for the baseline, and &Delta;ADE.</li>
                         <li>Public code repository link</li>
                         <li>Paper PDF link</li>
                         <li>Submitted papers are encouraged to follow the CVPR paper format</li>
@@ -928,6 +1043,15 @@
                     <h3>FAQ</h3>
                     <div class="faq-list">
                         <details>
+                            <summary>What is the official leaderboard evaluation protocol?</summary>
+                            <p>
+                                Leaderboard evaluation uses single-shot, open-loop prediction. Each sample provides 2 seconds
+                                of ground-truth history, and models submit one 6-second future trajectory with 12 positions
+                                sampled at 2 Hz. Sliding-window evaluation and rollout-based closed-loop evaluation are not
+                                used for official scoring.
+                            </p>
+                        </details>
+                        <details>
                             <summary>Do I need to attend the workshop to participate in the challenge?</summary>
                             <p>
                                 No. Participation in the workshop is not required in order to complete the challenge, although
@@ -938,30 +1062,51 @@
                             <summary>Which dataset splits should be used for training and evaluation?</summary>
                             <p>
                                 For training and validation, participants can use the nuScenes v1.0-trainval split, which contains
-                                850 scenes. For testing and evaluations on the website, participants should use the nuScenes
-                                v1.0-test split, which contains 150 scenes.
+                                approximately 850 scenes. For testing and evaluations on the website, participants should use the nuScenes
+                                v1.0-test split, which contains approximately 150 scenes. The test split may be used only to generate
+                                leaderboard submissions; test-set ground truth is not publicly available, and no training,
+                                validation, model selection, or tuning is allowed on the test split.
                             </p>
                         </details>
                         <details>
-                            <summary>Can ground-truth future trajectories from the test split be used during training?</summary>
+                            <summary>Can ground-truth future trajectories from the test split be used?</summary>
                             <p>
-                                No. Ground-truth future trajectories from the nuScenes v1.0-test split must not be used during
-                                training.
+                                No. Ground-truth future trajectories from the nuScenes v1.0-test split must not be used for
+                                training, validation, tuning, model selection, submission debugging, or any other part of
+                                method development.
                             </p>
                         </details>
                         <details>
                             <summary>What do I need to include with my submission?</summary>
                             <p>
-                                Submissions should include a prediction CSV file in the required format, a public code repository
-                                link, and a paper PDF link. Submitted papers are encouraged to follow the CVPR paper format.
+                                Submissions should include a prediction CSV file, a public code repository link, and a paper PDF
+                                link. Participants must also report instruction-conditioned ADE, baseline ADE, and &Delta;ADE.
                             </p>
                         </details>
                         <details>
                             <summary>Where do the required inputs for prediction come from?</summary>
                             <p>
                                 Required inputs can be assembled by combining the standard nuScenes dataset with the doScenes
-                                annotation files provided in the repository. Only egocentric point of view data from nuScenes
-                                should be used.
+                                annotation files provided in the repository. Participants may use egocentric or non-egocentric
+                                nuScenes inputs when allowed by the selected track, as long as those inputs are available at or
+                                before the prediction time and do not reveal future information. Full Multimodal submissions may use cameras, history, map, and language;
+                                Language + History submissions may use history and language only; Ablation submissions must
+                                include both with-language and without-language results.
+                            </p>
+                        </details>
+                        <details>
+                            <summary>Which coordinate system should submissions use?</summary>
+                            <p>
+                                Submissions must use ego-centric coordinates in meters, expressed in the sample-time ego frame:
+                                x points forward from the ego vehicle and y points left. Every submitted trajectory must use
+                                this convention.
+                            </p>
+                        </details>
+                        <details>
+                            <summary>How are multiple instructions for one scene handled?</summary>
+                            <p>
+                                Each instruction annotation is treated as a separate evaluation sample. Models should submit one
+                                predicted trajectory for each instruction sample.
                             </p>
                         </details>
                         <details>
@@ -975,18 +1120,19 @@
                             <summary>Can I use additional datasets or pretrained models?</summary>
                             <p>
                                 Yes. Participants may use additional datasets and pretrained models, including models derived
-                                from nuScenes, provided that no information from the nuScenes v1.0-test split is used during
-                                training in any form.
+                                from nuScenes, provided that no information from the nuScenes v1.0-test split is used for
+                                training, validation, tuning, model selection, or submission debugging.
                             </p>
                             <p>External or auxiliary data is permitted under the following conditions:</p>
                             <ul>
                                 <li>External datasets are allowed as long as they do not include test split data.</li>
-                                <li>Pretrained models are allowed, but they must not be trained on the nuScenes v1.0-test split.</li>
+                                <li>Pretrained models are allowed, but they must not use nuScenes v1.0-test information for training, validation, tuning, model selection, or submission debugging.</li>
                                 <li>Auxiliary training data is permitted, provided the evaluation protocol is respected.</li>
                             </ul>
                             <p>
                                 Some pretrained models, especially those trained on nuScenes, may have used the test split
-                                during training. This would constitute a violation of the challenge protocol.
+                                during development. This would constitute a violation of the challenge protocol if test-set
+                                information influenced training, validation, tuning, model selection, or submission debugging.
                             </p>
                             <p>
                                 Participants are responsible for verifying and clearly documenting their data sources and training
@@ -1006,14 +1152,26 @@
                     <p>
                         The doScenes dataset is built upon nuScenes, which uses public road data. All videos are anonymized with
                         no identifiable faces or license plates. Language annotations are collected consensually and anonymously for
-                        research purposes. We encourage participants to consider the broader implications of instruction-conditioned
-                        autonomy, including:
+                        research purposes.
                     </p>
+                    <p>Participants should consider the following questions:</p>
                     <ul>
-                        <li>Safety in deployment</li>
-                        <li>Handling of adversarial or conflicting instructions</li>
-                        <li>Accountability when human instructions influence autonomous behavior</li>
+                        <li>What should a system do when an instruction conflicts with traffic laws?</li>
+                        <li>Should a model defer to scene context when language is underspecified?</li>
+                        <li>How robust is the system to misleading or adversarial instructions?</li>
                     </ul>
+                    <p>
+                        Language must not override safety constraints. Models developed for this challenge should prioritize
+                        regulatory compliance, interpretability of instruction influence, and robustness to adversarial phrasing.
+                    </p>
+
+                    <h3>Concluding Remarks</h3>
+                    <p>
+                        The doScenes Instructed Driving Challenge introduces a trajectory prediction paradigm that leverages
+                        natural language descriptions of intended maneuvers to improve forecasting accuracy. By augmenting the
+                        established nuScenes benchmark with human-authored instructions, the challenge enables research into
+                        instruction-conditioned prediction models that can outperform history-only baselines.
+                    </p>
 
                     <h3>Contact</h3>
                     <div class="contact-card">
