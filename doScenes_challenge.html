@@ -805,13 +805,6 @@
                         <li><strong>Quantify the instruction benefit:</strong> Measure the gap between history-only and instruction-conditioned prediction, providing motivation for human-in-the-loop autonomy systems.</li>
                         <li><strong>Build community:</strong> Foster collaboration between the computer vision, NLP, and autonomous driving research communities.</li>
                     </ol>
-                    <p>We hypothesize that instruction-conditioned models will show significant improvements over history-only baselines, particularly for:</p>
-                    <ul>
-                        <li>Ambiguous scenarios where multiple future trajectories are plausible</li>
-                        <li>Complex maneuvers requiring multi-step planning</li>
-                        <li>Rare or unusual driving situations</li>
-                    </ul>
-
                     <h2 id="leaderboard">Leaderboard</h2>
                     <p>Test-set leaderboard for instruction-conditioned trajectory prediction. Baselines are listed first.</p>
 
@@ -841,9 +834,9 @@
                                 <td>—</td>
                                 <td><strong>Instruction</strong><span class="baseline-badge">LANGUAGE</span></td>
                                 <td>Full Multimodal</td>
-                                <td>2.929</td>
+                                <td>2.975</td>
                                 <td>---</td>
-                                <td>-0.050</td>
+                                <td>-0.096</td>
                                 <td>---</td>
                             </tr>
                             <tr>
@@ -880,9 +873,8 @@
                     </ul>
                     <p>
                         The diversity of annotators ensures that models must handle natural variation in instruction phrasing, rather
-                        than memorizing specific templates. If multiple instructions are available for a scene, each instruction
-                        annotation is treated as a separate evaluation sample; participants submit one prediction for each
-                        instruction sample.
+                        than memorizing specific templates. For leaderboard evaluation, each test scene corresponds to one
+                        trajectory prediction from the first scene segment, matched using the scene's <code>scene_token</code>.
                     </p>
 
                     <h3>Dataset Statistics</h3>
@@ -1022,17 +1014,26 @@
                         </tbody>
                     </table>
 
+                    <h3>Dataloader Update</h3>
                     <p>
-                        The doScenes annotations provided in the repository correspond to scenes from these splits.
+                        The <a href="https://github.com/rossgreer/doScenes" target="_blank" rel="noopener">doScenes repository</a>
+                        includes an updated dataloader that provides the correct split for history, anchor, and future
+                        trajectory points. For training and validation, participants may switch the dataloader version to
+                        <code>v1.0-trainval</code>. For evaluation, the challenge uses the first segment of each scene from
+                        the test set.
+                    </p>
+                    <p>
+                        The dataloader returns a <code>scene_token</code> for each scene. Use this value as the
+                        <code>sample_token</code> in <code>submission.csv</code>, since each evaluation scene corresponds
+                        to a single trajectory.
                     </p>
                     <h3>Official Evaluation Protocol</h3>
                     <ul>
-                        <li>Each sample uses 2 seconds of ground-truth history and 6 seconds of future prediction.</li>
-                        <li>Trajectories are sampled at 2 Hz, so each prediction contains 12 future positions.</li>
-                        <li>Leaderboard evaluation uses single-shot prediction per sample.</li>
+                        <li>Each sample uses 2 seconds of ground-truth history and a 6-second prediction horizon sampled at 2 Hz.</li>
+                        <li>Leaderboard evaluation uses single-shot, open-loop prediction per sample.</li>
+                        <li>Evaluation uses the first segment of each scene from the nuScenes v1.0-test split.</li>
                         <li>Sliding-window evaluation is not used for official scoring.</li>
-                        <li>Evaluation is open-loop: ground-truth history is provided at inference time, and predictions are not rolled out or fed back into the model.</li>
-                        <li>Models must generate one trajectory per sample.</li>
+                        <li>Models must generate exactly one trajectory per evaluation sample, matched by <code>sample_token</code>.</li>
                     </ul>
 
                     <h3>Fair Evaluation Requirements</h3>
@@ -1061,11 +1062,6 @@
                         allowed by the selected track, provided the inputs are available at or before the prediction time and
                         do not leak future information.
                     </p>
-                    <p>
-                        Regardless of input representation, submission coordinates must be ego-centric coordinates in meters,
-                        expressed in the sample-time ego frame. The x-axis points forward from the ego vehicle and the y-axis
-                        points left. All submitted trajectories must follow this same coordinate convention.
-                    </p>
 
                     <h2 id="submission">Submission Instructions</h2>
 
@@ -1073,8 +1069,29 @@
                     <div class="hero-buttons" style="margin-top: 1.5rem;">
                         <a href="https://forms.gle/GsewyaxnjectySYV7" class="btn-primary" target="_blank" rel="noopener">Submit Here</a>
                     </div>
+                    <h3>Submission CSV Format</h3>
+                    <p>
+                        Prediction files must be named <code>submission.csv</code>. Each evaluation sample must have exactly
+                        one corresponding prediction row, and predictions are matched using <code>sample_token</code>.
+                    </p>
+                    <p>
+                        The required CSV header is:
+                    </p>
+                    <pre><code>sample_token,x1,y1,x2,y2,...,x12,y12</code></pre>
+                    <p>
+                        The <code>sample_token</code> uniquely identifies each evaluation instance. When using the updated
+                        doScenes dataloader, use the returned <code>scene_token</code> as the <code>sample_token</code>,
+                        since each evaluation scene corresponds to a single trajectory.
+                    </p>
+                    <p>
+                        Coordinates <code>(x_t, y_t)</code> represent the predicted 2D ego-vehicle position at each future
+                        timestep. The prediction horizon is 6 seconds at 2 Hz, for 12 total timesteps. All coordinates must be
+                        expressed in meters in the ego vehicle coordinate frame at prediction time <code>t = 0</code>, where
+                        the x-axis points forward and the y-axis points left.
+                    </p>
                     <h3>Submission Checklist</h3>
                     <ul>
+                        <li><code>submission.csv</code> with one row per evaluation sample and columns <code>sample_token,x1,y1,x2,y2,...,x12,y12</code>.</li>
                         <li>ADE for the instruction-conditioned model, ADE for the baseline, and &Delta;ADE.</li>
                         <li>Public code repository link</li>
                         <li>Paper PDF link</li>
@@ -1137,10 +1154,8 @@
                         <details>
                             <summary>What is the official leaderboard evaluation protocol?</summary>
                             <p>
-                                Leaderboard evaluation uses single-shot, open-loop prediction. Each sample provides 2 seconds
-                                of ground-truth history, and models submit one 6-second future trajectory with 12 positions
-                                sampled at 2 Hz. Sliding-window evaluation and rollout-based closed-loop evaluation are not
-                                used for official scoring.
+                                Leaderboard evaluation uses single-shot, open-loop prediction on the first segment of each
+                                nuScenes v1.0-test scene. See the Official Evaluation Protocol section for the full setup.
                             </p>
                         </details>
                         <details>
@@ -1171,8 +1186,9 @@
                         <details>
                             <summary>What do I need to include with my submission?</summary>
                             <p>
-                                Submissions should include a prediction CSV file, a public code repository link, and a paper PDF
-                                link. Participants must also report instruction-conditioned ADE, baseline ADE, and &Delta;ADE.
+                                Submissions should include a prediction CSV file named <code>submission.csv</code>, a public
+                                code repository link, and a paper PDF link. Participants must also report
+                                instruction-conditioned ADE, baseline ADE, and &Delta;ADE.
                             </p>
                         </details>
                         <details>
@@ -1189,23 +1205,24 @@
                         <details>
                             <summary>Which coordinate system should submissions use?</summary>
                             <p>
-                                Submissions must use ego-centric coordinates in meters, expressed in the sample-time ego frame:
-                                x points forward from the ego vehicle and y points left. Every submitted trajectory must use
-                                this convention.
+                                Use ego-centric coordinates in meters, expressed in the sample-time ego frame. The exact
+                                convention is listed in the Submission CSV Format section.
                             </p>
                         </details>
                         <details>
                             <summary>How are multiple instructions for one scene handled?</summary>
                             <p>
-                                Each instruction annotation is treated as a separate evaluation sample. Models should submit one
-                                predicted trajectory for each instruction sample.
+                                For leaderboard evaluation, each scene corresponds to a single trajectory from the first segment
+                                of the test-set scene. When using the dataloader, use the returned <code>scene_token</code> as
+                                the <code>sample_token</code> and submit one predicted trajectory for each evaluation scene.
                             </p>
                         </details>
                         <details>
                             <summary>How do I get started with the doScenes dataset?</summary>
                             <p>
-                                A reference dataloader is available inside the doScenes repository to help participants get
-                                started with loading the annotations together with the underlying nuScenes data.
+                                Use the updated dataloader in the <a href="https://github.com/rossgreer/doScenes" target="_blank" rel="noopener">doScenes repository</a>.
+                                It provides the history, anchor, and future trajectory split and returns the
+                                <code>scene_token</code> needed for submission rows.
                             </p>
                         </details>
                         <details>
