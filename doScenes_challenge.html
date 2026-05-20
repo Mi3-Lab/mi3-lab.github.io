@@ -778,7 +778,7 @@
                         dataset. Each model must submit exactly one predicted trajectory per sample.
                     </p>
                     <p>The Instruction Conditioning Gain is computed as:</p>
-                    <p><strong>&Delta;ADE = ADE<sub>baseline</sub> − ADE<sub>instruction</sub></strong> (1)</p>
+                    <p><strong>&Delta;ADE = ADE<sub>baseline</sub> âˆ’ ADE<sub>instruction</sub></strong> (1)</p>
                     <p>
                         For official leaderboard reporting, the history-only baseline is defined per track: it uses the same
                         non-language inputs and identical evaluation protocol except that no language instruction is provided.
@@ -808,53 +808,166 @@
                     <h2 id="leaderboard">Leaderboard</h2>
                     <p>Test-set leaderboard for instruction-conditioned trajectory prediction. Baselines are listed first.</p>
 
+                    <h3>Full Multimodal</h3>
                     <table class="leaderboard-table">
                         <thead>
                             <tr>
                                 <th>Rank</th>
                                 <th>Team / Model</th>
-                                <th>Track</th>
                                 <th>ADE</th>
                                 <th>FDE</th>
                                 <th>&Delta;ADE</th>
+                                <th>Status</th>
                                 <th>Submission Date</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr class="baseline-row">
-                                <td>—</td>
+                                <td>&mdash;</td>
                                 <td><strong>History-Only Baseline</strong><span class="baseline-badge">NO LANGUAGE</span></td>
-                                <td>Full Multimodal</td>
                                 <td>7.1086</td>
                                 <td>13.8567</td>
                                 <td>---</td>
+                                <td>Paper baseline</td>
                                 <td>---</td>
                             </tr>
                             <tr class="baseline-row">
-                                <td>—</td>
+                                <td>&mdash;</td>
                                 <td><strong>Instruction</strong><span class="baseline-badge">LANGUAGE</span></td>
-                                <td>Full Multimodal</td>
                                 <td>7.2046</td>
                                 <td>13.9224</td>
                                 <td>-0.0960</td>
+                                <td>Paper baseline</td>
                                 <td>---</td>
                             </tr>
                             <tr>
                                 <td>1</td>
-                                <td colspan="6" style="color: var(--muted);">TBD</td>
+                                <td><strong>MIC Lab</strong></td>
+                                <td><strong>2.0539</strong></td>
+                                <td><strong>5.4318</strong></td>
+                                <td>---</td>
+                                <td><span class="baseline-badge">VERIFIED</span></td>
+                                <td>May 14, 2026</td>
                             </tr>
                             <tr>
                                 <td>2</td>
-                                <td colspan="6" style="color: var(--muted);">TBD</td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td colspan="6" style="color: var(--muted);">TBD</td>
+                                <td><strong>why</strong></td>
+                                <td>3.3309</td>
+                                <td>8.1090</td>
+                                <td>+0.0213</td>
+                                <td><span class="baseline-badge">SELF-REPORTED</span></td>
+                                <td>May 14, 2026</td>
                             </tr>
                         </tbody>
                     </table>
 
-                    <p class="helper-text">Leaderboard scores use single-shot, open-loop evaluation with one 6-second trajectory per sample. The ADE column reports <code>ade_6s</code>, and the Instruction row reports the average instruction condition. Caption: “history-only baseline” denotes the matched no-language condition for the selected track. Baselines are from the paper: Martinez-Sanchez et al., <em>Natural Language Instructions for Scene-Responsive Human-in-the-Loop Motion Planning in Autonomous Driving using Vision-Language-Action Models</em>, arXiv:2602.04184, 2026.</p>
+                    <h3>Language + History</h3>
+                    <table class="leaderboard-table">
+                        <thead>
+                            <tr>
+                                <th>Rank</th>
+                                <th>Team / Model</th>
+                                <th>ADE</th>
+                                <th>FDE</th>
+                                <th>&Delta;ADE</th>
+                                <th>Status</th>
+                                <th>Submission Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td><strong>why</strong></td>
+                                <td><strong>2.9207</strong></td>
+                                <td><strong>6.7470</strong></td>
+                                <td>---</td>
+                                <td><span class="baseline-badge">SUBSET</span></td>
+                                <td>May 13, 2026</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td><strong>UCF UrbanITY Lab</strong></td>
+                                <td>3.1450</td>
+                                <td>7.2555</td>
+                                <td>+0.0033</td>
+                                <td><span class="baseline-badge">VERIFIED</span></td>
+                                <td>May 11, 2026</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td><strong>TJNU_PRCV</strong></td>
+                                <td>3.1707</td>
+                                <td>7.6409</td>
+                                <td>---</td>
+                                <td><span class="baseline-badge">VERIFIED</span></td>
+                                <td>May 18, 2026</td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td><strong>team 1 / Jian Luo</strong></td>
+                                <td>3.3000</td>
+                                <td>7.4900</td>
+                                <td>+0.0400</td>
+                                <td><span class="baseline-badge">SELF-REPORTED</span></td>
+                                <td>May 12, 2026</td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td><strong>sztudk</strong></td>
+                                <td>3.4745</td>
+                                <td>8.2768</td>
+                                <td>+0.4814</td>
+                                <td><span class="baseline-badge">SELF-REPORTED</span></td>
+                                <td>May 17, 2026</td>
+                            </tr>
+                            <tr>
+                                <td>6</td>
+                                <td><strong>vitality</strong></td>
+                                <td>3.7511</td>
+                                <td>8.9083</td>
+                                <td>---</td>
+                                <td><span class="baseline-badge">DIAGNOSTIC</span></td>
+                                <td>May 6, 2026</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h3>Ablation</h3>
+                    <table class="leaderboard-table">
+                        <thead>
+                            <tr>
+                                <th>Rank</th>
+                                <th>Team / Model</th>
+                                <th>Instruction ADE</th>
+                                <th>Baseline ADE</th>
+                                <th>&Delta;ADE</th>
+                                <th>Status</th>
+                                <th>Submission Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td><strong>why</strong></td>
+                                <td>3.3522</td>
+                                <td>3.4828</td>
+                                <td>+0.1306</td>
+                                <td><span class="baseline-badge">SELF-REPORTED</span></td>
+                                <td>May 13, 2026</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td><strong>TJNU_PRCV</strong></td>
+                                <td>4.0503</td>
+                                <td>3.8410</td>
+                                <td>-0.2093</td>
+                                <td><span class="baseline-badge">VERIFIED</span></td>
+                                <td>May 18, 2026</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <p class="helper-text">Leaderboard scores use single-shot, open-loop evaluation with one 6-second trajectory per sample. ADE reports <code>ade_6s</code>, and FDE reports the final 6-second displacement error. VERIFIED rows were locally evaluated on the full 150-scene nuScenes v1.0-test protocol. SUBSET rows were locally evaluated on the 127 test scenes with non-empty instructions and are not directly comparable to full 150-scene VERIFIED rows. SELF-REPORTED rows come from submitted papers where the local CSV could not be verified for that track, and DIAGNOSTIC rows required non-official duplicate handling. For teams with multiple files, the displayed row uses the organizer-selected best available submission for that applied track. Non-verified results are provisional and will undergo further organizer review before being treated as final verified leaderboard results.</p>
 
                     <h2 id="data">Dataset & Data Splits</h2>
 
@@ -937,17 +1050,17 @@
                             <tr>
                                 <td>Total annotations</td>
                                 <td>3,924</td>
-                                <td>—</td>
+                                <td>â€”</td>
                             </tr>
                             <tr>
                                 <td>Unique scenes</td>
                                 <td>854</td>
-                                <td>—</td>
+                                <td>â€”</td>
                             </tr>
                             <tr>
                                 <td>Average annotations per scene</td>
                                 <td>4.6</td>
-                                <td>—</td>
+                                <td>â€”</td>
                             </tr>
                             <tr>
                                 <td>Dynamic-referential (d)</td>
@@ -1103,8 +1216,8 @@
                         The doScenes challenge runs across two workshops:
                     </p>
                     <ul>
-                        <li><strong><a href="#" style="color:var(--accent);">DriveX Workshop at CVPR 2026</a></strong> — June 3–4, Denver, CO. Leaderboard freeze: May 20, 2026.</li>
-                        <li><strong><a href="#" style="color:var(--accent);">VL-IIV Workshop at IEEE IV 2026</a></strong> — June 22, Detroit, MI. Leaderboard freeze: June 15, 2026.</li>
+                        <li><strong><a href="#" style="color:var(--accent);">DriveX Workshop at CVPR 2026</a></strong> â€” June 3â€“4, Denver, CO. Leaderboard freeze: May 20, 2026.</li>
+                        <li><strong><a href="#" style="color:var(--accent);">VL-IIV Workshop at IEEE IV 2026</a></strong> â€” June 22, Detroit, MI. Leaderboard freeze: June 15, 2026.</li>
                     </ul>
                     <p>
                         Participation in either workshop is not required to complete the challenge, but teams are encouraged
@@ -1127,24 +1240,24 @@
                                 <td>Registration and dataset access</td>
                             </tr>
                             <tr>
-                                <td>Leaderboard freeze — CVPR</td>
+                                <td>Leaderboard freeze â€” CVPR</td>
                                 <td>May 20, 2026</td>
-                                <td><a href="#" style="color:var(--accent);">DriveX Workshop at CVPR 2026</a> (Jun 3–4, Denver)</td>
+                                <td><a href="#" style="color:var(--accent);">DriveX Workshop at CVPR 2026</a> (Jun 3â€“4, Denver)</td>
                             </tr>
                             <tr>
-                                <td>Leaderboard freeze — IV</td>
+                                <td>Leaderboard freeze â€” IV</td>
                                 <td>June 15, 2026</td>
                                 <td><a href="#" style="color:var(--accent);">VL-IIV Workshop at IEEE IV 2026</a> (Jun 22, Detroit)</td>
                             </tr>
                             <tr>
                                 <td>CVPR DriveX Workshop</td>
-                                <td>June 3–4, 2026</td>
-                                <td>Denver, CO — hybrid event + invited talks</td>
+                                <td>June 3â€“4, 2026</td>
+                                <td>Denver, CO â€” hybrid event + invited talks</td>
                             </tr>
                             <tr>
                                 <td>IV VL-IIV Workshop</td>
                                 <td>June 22, 2026</td>
-                                <td>Detroit, MI — hybrid event + invited talks</td>
+                                <td>Detroit, MI â€” hybrid event + invited talks</td>
                             </tr>
                         </tbody>
                     </table>
@@ -1381,7 +1494,7 @@
     </div>
 
     <div class="footer">
-        Contact: kng408@ucmerced.edu | rossgreer@ucmerced.edu | Mi3 Lab: https://mi3-lab.github.io/ | © 2026 doScenes Instructed Driving Challenge
+        Contact: kng408@ucmerced.edu | rossgreer@ucmerced.edu | Mi3 Lab: https://mi3-lab.github.io/ | Â© 2026 doScenes Instructed Driving Challenge
     </div>
     <script>
         const navToggle = document.querySelector(".nav-toggle");
@@ -1395,7 +1508,7 @@
         if (navToggle && navList) {
             navToggle.addEventListener("click", () => {
                 const isOpen = navList.classList.toggle("open");
-                navToggle.setAttribute("aria-expanded", String(isOpen));
+                navToggle.setAttC:\Users\cutep\OneDrive\Desktop\local_leader\do_Scenes_challenge.htmlribute("aria-expanded", String(isOpen));
             });
 
             navLinks.forEach((link) => {
@@ -1441,16 +1554,6 @@
     </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
 
 
 
