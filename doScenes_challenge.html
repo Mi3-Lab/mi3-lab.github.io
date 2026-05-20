@@ -807,6 +807,13 @@
                     </ol>
                     <h2 id="leaderboard">Leaderboard</h2>
                     <p>Test-set leaderboard for instruction-conditioned trajectory prediction. Baselines are listed first.</p>
+                    <div class="callout">
+                        <strong>Leaderboard protocol update:</strong> The nuScenes v1.0-test split contains approximately
+                        150 source scenes. The current doScenes instruction-conditioned leaderboard evaluates the 127 test
+                        scenes with non-empty doScenes language instructions. The remaining 23 scenes have blank instruction
+                        fields and are not used for instruction-conditioned leaderboard scoring. Submitted files that include
+                        all 150 scenes are filtered to the 127 language-available scenes for scoring.
+                    </div>
 
                     <h3>Full Multimodal</h3>
                     <table class="leaderboard-table">
@@ -843,8 +850,8 @@
                             <tr>
                                 <td>1</td>
                                 <td><strong>MIC Lab</strong></td>
-                                <td><strong>2.0539</strong></td>
-                                <td><strong>5.4318</strong></td>
+                                <td><strong>2.0913</strong></td>
+                                <td><strong>5.5946</strong></td>
                                 <td>---</td>
                                 <td><span class="baseline-badge">VERIFIED</span></td>
                                 <td>May 14, 2026</td>
@@ -881,23 +888,23 @@
                                 <td><strong>2.9207</strong></td>
                                 <td><strong>6.7470</strong></td>
                                 <td>---</td>
-                                <td><span class="baseline-badge">SUBSET</span></td>
+                                <td><span class="baseline-badge">VERIFIED</span></td>
                                 <td>May 13, 2026</td>
                             </tr>
                             <tr>
                                 <td>2</td>
                                 <td><strong>UCF UrbanITY Lab</strong></td>
-                                <td>3.1450</td>
-                                <td>7.2555</td>
-                                <td>+0.0033</td>
+                                <td>3.1421</td>
+                                <td>7.2102</td>
+                                <td>+0.0039</td>
                                 <td><span class="baseline-badge">VERIFIED</span></td>
                                 <td>May 11, 2026</td>
                             </tr>
                             <tr>
                                 <td>3</td>
                                 <td><strong>TJNU_PRCV</strong></td>
-                                <td>3.1707</td>
-                                <td>7.6409</td>
+                                <td>3.2097</td>
+                                <td>7.7726</td>
                                 <td>---</td>
                                 <td><span class="baseline-badge">VERIFIED</span></td>
                                 <td>May 18, 2026</td>
@@ -958,16 +965,16 @@
                             <tr>
                                 <td>2</td>
                                 <td><strong>TJNU_PRCV</strong></td>
-                                <td>4.0503</td>
-                                <td>3.8410</td>
-                                <td>-0.2093</td>
+                                <td>4.1024</td>
+                                <td>3.9083</td>
+                                <td>-0.1941</td>
                                 <td><span class="baseline-badge">VERIFIED</span></td>
                                 <td>May 18, 2026</td>
                             </tr>
                         </tbody>
                     </table>
 
-                    <p class="helper-text">Leaderboard scores use single-shot, open-loop evaluation with one 6-second trajectory per sample. ADE reports <code>ade_6s</code>, and FDE reports the final 6-second displacement error. VERIFIED rows were locally evaluated on the full 150-scene nuScenes v1.0-test protocol. SUBSET rows were locally evaluated on the 127 test scenes with non-empty instructions and are not directly comparable to full 150-scene VERIFIED rows. SELF-REPORTED rows come from submitted papers where the local CSV could not be verified for that track, and DIAGNOSTIC rows required non-official duplicate handling. For teams with multiple files, the displayed row uses the organizer-selected best available submission for that applied track. Non-verified results are provisional and will undergo further organizer review before being treated as final verified leaderboard results.</p>
+                    <p class="helper-text">Leaderboard scores use single-shot, open-loop evaluation with one 6-second trajectory per sample. ADE reports <code>ade_6s</code>, and FDE reports the final 6-second displacement error. VERIFIED instruction-conditioned rows were locally evaluated on the 127 nuScenes v1.0-test scenes with non-empty doScenes instructions. The full nuScenes v1.0-test split contains approximately 150 scenes, but 23 current doScenes test scenes have blank instruction fields and are excluded from instruction-conditioned leaderboard scoring. For submitted files with all 150 scene rows, evaluation filters to the 127 language-available scenes. SELF-REPORTED rows come from submitted papers where the local CSV could not be verified for that track, and DIAGNOSTIC rows required non-official duplicate handling. For teams with multiple files, the displayed row uses the organizer-selected best available submission for that applied track, except Ablation uses matched with-language and without-language files. Non-verified results are provisional and will undergo further organizer review before being treated as final verified leaderboard results.</p>
 
                     <h2 id="data">Dataset & Data Splits</h2>
 
@@ -975,6 +982,14 @@
                         doScenes extends nuScenes with human-authored instruction annotations. Public challenge development
                         uses the nuScenes v1.0-trainval split, while website leaderboard evaluation uses the nuScenes v1.0-test
                         split. Instructions are written by multiple annotators to capture natural variation in phrasing.
+                    </p>
+                    <p>
+                        The nuScenes v1.0-test split contains approximately 150 scenes. In the current doScenes test annotations,
+                        127 of those scenes have non-empty language instructions and form the official instruction-conditioned
+                        leaderboard evaluation set. An instruction field may be blank when no
+                        instruction interaction is needed to cause the observed action, such as waiting at a red light or
+                        continuing with traffic. The 23 blank-instruction scenes remain part of the nuScenes test split, but
+                        are not used for instruction-conditioned leaderboard scoring.
                     </p>
                     <p>Instructions cover a variety of maneuvers including:</p>
                     <ul>
@@ -1120,9 +1135,9 @@
                             <tr>
                                 <td><strong>Website Testing</strong></td>
                                 <td>nuScenes v1.0-test split</td>
-                                <td>~150</td>
+                                <td>~150 source scenes; 127 with non-empty doScenes instructions</td>
                                 <td>Evaluations on the website</td>
-                                <td>Use only to generate leaderboard submissions; test ground truth is not publicly available</td>
+                                <td>Instruction-conditioned leaderboard scoring uses the 127 language-available scenes; test ground truth is not publicly available</td>
                             </tr>
                         </tbody>
                     </table>
@@ -1144,9 +1159,10 @@
                     <ul>
                         <li>Each sample uses 2 seconds of ground-truth history and a 6-second prediction horizon sampled at 2 Hz.</li>
                         <li>Leaderboard evaluation uses single-shot, open-loop prediction per sample.</li>
-                        <li>Evaluation uses the first segment of each scene from the nuScenes v1.0-test split.</li>
+                        <li>Instruction-conditioned leaderboard evaluation uses the first segment of each language-available doScenes test scene from the nuScenes v1.0-test split.</li>
                         <li>Sliding-window evaluation is not used for official scoring.</li>
                         <li>Models must generate exactly one trajectory per evaluation sample, matched by <code>sample_token</code>.</li>
+                        <li>The current official instruction-conditioned evaluation set contains 127 test scenes with non-empty doScenes instructions.</li>
                     </ul>
 
                     <h3>Fair Evaluation Requirements</h3>
@@ -1268,7 +1284,8 @@
                             <summary>What is the official leaderboard evaluation protocol?</summary>
                             <p>
                                 Leaderboard evaluation uses single-shot, open-loop prediction on the first segment of each
-                                nuScenes v1.0-test scene. See the Official Evaluation Protocol section for the full setup.
+                                language-available doScenes test scene from the nuScenes v1.0-test split. See the Official
+                                Evaluation Protocol section for the full setup.
                             </p>
                         </details>
                         <details>
@@ -1283,7 +1300,8 @@
                             <p>
                                 For training and validation, participants can use the nuScenes v1.0-trainval split, which contains
                                 approximately 850 scenes. For testing and evaluations on the website, participants should use the nuScenes
-                                v1.0-test split, which contains approximately 150 scenes. The test split may be used only to generate
+                                v1.0-test split, which contains approximately 150 source scenes. The current doScenes instruction-conditioned
+                                leaderboard uses the 127 test scenes with non-empty language instructions. The test split may be used only to generate
                                 leaderboard submissions; test-set ground truth is not publicly available, and no training,
                                 validation, model selection, or tuning is allowed on the test split.
                             </p>
@@ -1325,7 +1343,7 @@
                         <details>
                             <summary>How are multiple instructions for one scene handled?</summary>
                             <p>
-                                For leaderboard evaluation, each scene corresponds to a single trajectory from the first segment
+                                For leaderboard evaluation, each language-available scene corresponds to a single trajectory from the first segment
                                 of the test-set scene. When using the dataloader, use the returned <code>scene_token</code> as
                                 the <code>sample_token</code> and submit one predicted trajectory for each evaluation scene.
                             </p>
@@ -1554,9 +1572,4 @@
     </script>
 </body>
 </html>
-
-
-
-
-
 
