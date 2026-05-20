@@ -162,27 +162,6 @@ img {
   margin-bottom: 30px;
 }
 
-.hero-logo {
-  display: block;
-  margin: 0 auto 28px;
-  height: 200px;
-  width: auto;
-  max-width: 100%;
-  filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.25));
-}
-
-.visually-hidden {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
-}
-
 .hero .tagline {
   font-size: 1.15rem;
   font-style: italic;
@@ -610,6 +589,36 @@ img.person-avatar {
   color: var(--text-light);
 }
 
+/* Director row */
+.director-row {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.director-row .director-card {
+  flex: 0 0 auto;
+  width: 280px;
+}
+
+.director-logo {
+  height: 180px;
+  width: auto;
+  max-width: 100%;
+}
+
+@media (max-width: 640px) {
+  .director-row {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .director-logo {
+    height: 140px;
+  }
+}
+
 /* Alumni Section */
 .alumni-section {
   margin-top: 50px;
@@ -926,11 +935,6 @@ img.person-avatar {
 
   .hero .subtitle {
     font-size: 1.2rem;
-  }
-
-  .hero-logo {
-    height: 140px;
-    margin-bottom: 22px;
   }
 
   .section-title {
