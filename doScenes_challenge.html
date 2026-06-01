@@ -656,6 +656,42 @@
                 display: none;
             }
         }
+        .team-members-dropdown {
+            display: inline-block;
+        }
+
+        .team-members-dropdown summary {
+            cursor: pointer;
+            list-style: none;
+            font-size: 0.75rem;
+            color: var(--muted, #666);
+            margin-top: 0.25rem;
+        }
+
+        .team-members-dropdown summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .team-members-dropdown summary::after {
+            content: ' ▸';
+        }
+
+        .team-members-dropdown[open] summary::after {
+            content: ' ▾';
+        }
+
+        .team-members-dropdown ul {
+            margin: 0.3rem 0 0 0;
+            padding: 0;
+            list-style: none;
+            font-size: 0.78rem;
+            color: var(--ink, #333);
+            text-align: left;
+        }
+
+        .team-members-dropdown ul li {
+            padding: 0.1rem 0;
+        }
     </style>
 </head>
 <body>
@@ -858,7 +894,17 @@
                             </tr>
                             <tr>
                                 <td>2</td>
-                                <td><strong>NudgeVAD</strong></td>
+                                <td>
+                                    <strong>NudgeVAD</strong><br>
+                                    <details class="team-members-dropdown">
+                                        <summary>Team members</summary>
+                                        <ul>
+                                            <li>Chieh-Chi Yang</li>
+                                            <li>Yu-Hsiang Chen</li>
+                                            <li>Yi-Ting Chen</li>
+                                        </ul>
+                                    </details>
+                                </td>
                                 <td>2.6774</td>
                                 <td>5.5673</td>
                                 <td>+0.3996</td>
@@ -920,7 +966,19 @@
                             </tr>
                             <tr>
                                 <td>3</td>
-                                <td><strong>TJNU_PRCV</strong></td>
+                                <td>
+                                    <strong>TJNU_PRCV</strong><br>
+                                    <details class="team-members-dropdown">
+                                        <summary>Team members</summary>
+                                        <ul>
+                                            <li>Nuoran Wang (Tianjin Normal University, Tianjin, China)</li>
+                                            <li>Mengyang Li (Tianjin Normal University, Tianjin, China)</li>
+                                            <li>Shuang Liu (Tianjin Normal University, Tianjin, China)</li>
+                                            <li>Song Gao (National Innovation Center of Intelligent and Connected Vehicles, Beijing, China)</li>
+                                            <li>Zhong Zhang (Tianjin Normal University, Tianjin, China)</li>
+                                        </ul>
+                                    </details>
+                                </td>
                                 <td>3.2097</td>
                                 <td>7.7726</td>
                                 <td>---</td>
@@ -973,7 +1031,17 @@
                         <tbody>
                             <tr>
                                 <td>1</td>
-                                <td><strong>NudgeVAD</strong></td>
+                                <td>
+                                    <strong>NudgeVAD</strong><br>
+                                    <details class="team-members-dropdown">
+                                        <summary>Team members</summary>
+                                        <ul>
+                                            <li>Chieh-Chi Yang</li>
+                                            <li>Yu-Hsiang Chen</li>
+                                            <li>Yi-Ting Chen</li>
+                                        </ul>
+                                    </details>
+                                </td>
                                 <td><strong>2.6774</strong></td>
                                 <td><strong>3.0770</strong></td>
                                 <td>+0.3996</td>
