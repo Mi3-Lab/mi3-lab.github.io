@@ -738,9 +738,9 @@
             <div class="info-card-detail">Leaderboard freeze for <a href="#" style="color:var(--accent);">DriveX Workshop @ ECCV</a> (AoE)</div>
         </div>
         <div class="info-card">
-            <div class="info-card-label">Tracks</div>
-            <div class="info-card-value">3 Evaluation Tracks</div>
-            <div class="info-card-detail">Full Multimodal, Language + History, Ablation</div>
+            <div class="info-card-label">Track</div>
+            <div class="info-card-value">Full Multimodal</div>
+            <div class="info-card-detail">Cameras, history, map &amp; language; ablation encouraged</div>
         </div>
     </div>
 
@@ -783,7 +783,7 @@
                     </p>
 
                     <h3>Task Definition</h3>
-                    <p><strong>For the Full Multimodal track, participants are given:</strong></p>
+                    <p><strong>Participants are given:</strong></p>
                     <ul>
                         <li>Visual scene input from permitted nuScenes cameras</li>
                         <li>Historical trajectory information (past 2 seconds)</li>
@@ -825,13 +825,10 @@
                         Positive &Delta;ADE indicates language improves trajectory prediction relative to the history-only baseline.
                     </div>
 
-                    <h3>Evaluation Tracks</h3>
-                    <p>Participants may submit to one or more tracks:</p>
-                    <ol class="tracks-grid">
-                        <li><strong>Full Multimodal:</strong> Uses cameras, 2 seconds of history, map data, and language instruction.</li>
-                        <li><strong>Language + History:</strong> Uses 2 seconds of history and language instruction only; visual input is not allowed.</li>
-                        <li><strong>Ablation:</strong> Participants must report both with-language and without-language results under the same protocol to demonstrate the instruction benefit.</li>
-                    </ol>
+                    <h3>Evaluation Track</h3>
+                    <p>
+                        The challenge uses a single <strong>Full Multimodal</strong> track: participants may use cameras, 2 seconds of ego-vehicle history, HD map data, and the language instruction. Submissions that use only language and history (no visual input) are accepted and recorded with the corresponding Track label on the leaderboard. All participants are strongly encouraged to report a matched history-only ablation alongside their instruction-conditioned result, demonstrating the benefit of the language input via &Delta;ADE.
+                    </p>
 
                     <h3>Goals and Expected Outcomes</h3>
                     <p>The doScenes Instructed Driving Challenge aims to:</p>
@@ -842,7 +839,7 @@
                         <li><strong>Build community:</strong> Foster collaboration between the computer vision, NLP, and autonomous driving research communities.</li>
                     </ol>
                     <h2 id="leaderboard">Leaderboard</h2>
-                    <p>Test-set leaderboard for instruction-conditioned trajectory prediction. Baselines are listed first.</p>
+                    <p>Test-set leaderboard for instruction-conditioned trajectory prediction. Baselines are listed first; all other entries are ranked by ADE. The <strong>Track</strong> column records the input modalities used in each submission.</p>
                     <div class="callout">
                         <strong>Leaderboard protocol update:</strong> The nuScenes v1.0-test split contains approximately
                         150 source scenes. The current doScenes instruction-conditioned leaderboard evaluates the 127 test
@@ -851,12 +848,12 @@
                         all 150 scenes are filtered to the 127 language-available scenes for scoring.
                     </div>
 
-                    <h3>Full Multimodal</h3>
                     <table class="leaderboard-table">
                         <thead>
                             <tr>
                                 <th>Rank</th>
                                 <th>Team / Model</th>
+                                <th>Track</th>
                                 <th>ADE</th>
                                 <th>FDE</th>
                                 <th>&Delta;ADE</th>
@@ -868,6 +865,7 @@
                             <tr class="baseline-row">
                                 <td>&mdash;</td>
                                 <td><strong>History-Only Baseline</strong><span class="baseline-badge">NO LANGUAGE</span></td>
+                                <td>Full Multimodal</td>
                                 <td>7.1086</td>
                                 <td>13.8567</td>
                                 <td>---</td>
@@ -877,6 +875,7 @@
                             <tr class="baseline-row">
                                 <td>&mdash;</td>
                                 <td><strong>Instruction</strong><span class="baseline-badge">LANGUAGE</span></td>
+                                <td>Full Multimodal</td>
                                 <td>7.2046</td>
                                 <td>13.9224</td>
                                 <td>-0.0960</td>
@@ -886,6 +885,7 @@
                             <tr>
                                 <td>1</td>
                                 <td><strong>MIC Lab</strong></td>
+                                <td>Full Multimodal</td>
                                 <td><strong>2.0913</strong></td>
                                 <td><strong>5.5946</strong></td>
                                 <td>---</td>
@@ -905,6 +905,7 @@
                                         </ul>
                                     </details>
                                 </td>
+                                <td>Full Multimodal</td>
                                 <td>2.6774</td>
                                 <td>5.5673</td>
                                 <td>+0.3996</td>
@@ -914,6 +915,7 @@
                             <tr>
                                 <td>3</td>
                                 <td><strong>UCF UrbanITY Lab</strong></td>
+                                <td>Full Multimodal</td>
                                 <td>2.7577</td>
                                 <td>6.3753</td>
                                 <td>---</td>
@@ -923,41 +925,17 @@
                             <tr>
                                 <td>4</td>
                                 <td><strong>why</strong></td>
-                                <td>3.3309</td>
-                                <td>8.1090</td>
-                                <td>+0.0213</td>
-                                <td><span class="baseline-badge">SELF-REPORTED</span></td>
-                                <td>May 14, 2026</td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                    <h3>Language + History</h3>
-                    <table class="leaderboard-table">
-                        <thead>
-                            <tr>
-                                <th>Rank</th>
-                                <th>Team / Model</th>
-                                <th>ADE</th>
-                                <th>FDE</th>
-                                <th>&Delta;ADE</th>
-                                <th>Status</th>
-                                <th>Submission Date</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td><strong>why</strong></td>
-                                <td><strong>2.9207</strong></td>
-                                <td><strong>6.7470</strong></td>
+                                <td>Language + History</td>
+                                <td>2.9207</td>
+                                <td>6.7470</td>
                                 <td>---</td>
                                 <td><span class="baseline-badge">VERIFIED</span></td>
                                 <td>May 13, 2026</td>
                             </tr>
                             <tr>
-                                <td>2</td>
+                                <td>5</td>
                                 <td><strong>UCF UrbanITY Lab</strong></td>
+                                <td>Language + History</td>
                                 <td>3.1421</td>
                                 <td>7.2102</td>
                                 <td>+0.0039</td>
@@ -965,7 +943,7 @@
                                 <td>May 11, 2026</td>
                             </tr>
                             <tr>
-                                <td>3</td>
+                                <td>6</td>
                                 <td>
                                     <strong>TJNU_PRCV</strong><br>
                                     <details class="team-members-dropdown">
@@ -979,6 +957,7 @@
                                         </ul>
                                     </details>
                                 </td>
+                                <td>Language + History</td>
                                 <td>3.2097</td>
                                 <td>7.7726</td>
                                 <td>---</td>
@@ -986,8 +965,9 @@
                                 <td>May 18, 2026</td>
                             </tr>
                             <tr>
-                                <td>4</td>
+                                <td>7</td>
                                 <td><strong>sztudk</strong></td>
+                                <td>Language + History</td>
                                 <td>3.2107</td>
                                 <td>7.2955</td>
                                 <td>---</td>
@@ -995,8 +975,9 @@
                                 <td>May 17, 2026</td>
                             </tr>
                             <tr>
-                                <td>5</td>
+                                <td>8</td>
                                 <td><strong>1</strong></td>
+                                <td>Language + History</td>
                                 <td>3.3000</td>
                                 <td>7.4900</td>
                                 <td>+0.0400</td>
@@ -1004,8 +985,19 @@
                                 <td>May 12, 2026</td>
                             </tr>
                             <tr>
-                                <td>6</td>
+                                <td>9</td>
+                                <td><strong>why</strong></td>
+                                <td>Full Multimodal</td>
+                                <td>3.3309</td>
+                                <td>8.1090</td>
+                                <td>+0.0213</td>
+                                <td><span class="baseline-badge">SELF-REPORTED</span></td>
+                                <td>May 14, 2026</td>
+                            </tr>
+                            <tr>
+                                <td>10</td>
                                 <td><strong>vitality</strong></td>
+                                <td>Language + History</td>
                                 <td>3.7511</td>
                                 <td>8.9083</td>
                                 <td>---</td>
@@ -1015,70 +1007,7 @@
                         </tbody>
                     </table>
 
-                    <h3>Ablation</h3>
-                    <table class="leaderboard-table">
-                        <thead>
-                            <tr>
-                                <th>Rank</th>
-                                <th>Team / Model</th>
-                                <th>Instruction ADE</th>
-                                <th>Baseline ADE</th>
-                                <th>&Delta;ADE</th>
-                                <th>Status</th>
-                                <th>Submission Date</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>
-                                    <strong>NudgeVAD</strong><br>
-                                    <details class="team-members-dropdown">
-                                        <summary>Team members</summary>
-                                        <ul>
-                                            <li>Chieh-Chi Yang</li>
-                                            <li>Yu-Hsiang Chen</li>
-                                            <li>Yi-Ting Chen</li>
-                                        </ul>
-                                    </details>
-                                </td>
-                                <td><strong>2.6774</strong></td>
-                                <td><strong>3.0770</strong></td>
-                                <td>+0.3996</td>
-                                <td><span class="baseline-badge">VERIFIED</span></td>
-                                <td>May 20, 2026</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td><strong>UCF UrbanITY Lab</strong><br><span class="helper-text">Language + History ablation</span></td>
-                                <td>3.1421</td>
-                                <td>3.1460</td>
-                                <td>+0.0039</td>
-                                <td><span class="baseline-badge">VERIFIED</span></td>
-                                <td>May 20, 2026</td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td><strong>why</strong></td>
-                                <td>3.3522</td>
-                                <td>3.4828</td>
-                                <td>+0.1306</td>
-                                <td><span class="baseline-badge">SELF-REPORTED</span></td>
-                                <td>May 13, 2026</td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td><strong>TJNU_PRCV</strong></td>
-                                <td>3.5484</td>
-                                <td>4.3001</td>
-                                <td>+0.7517</td>
-                                <td><span class="baseline-badge">VERIFIED</span></td>
-                                <td>May 21, 2026</td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                    <p class="helper-text">Leaderboard scores use single-shot, open-loop evaluation with one 6-second trajectory per sample. ADE reports <code>ade_6s</code>, and FDE reports the final 6-second displacement error. VERIFIED instruction-conditioned rows were locally evaluated on the 127 nuScenes v1.0-test scenes with non-empty doScenes instructions. The full nuScenes v1.0-test split contains approximately 150 scenes, but 23 current doScenes test scenes have blank instruction fields and are excluded from instruction-conditioned leaderboard scoring. For submitted files with all 150 scene rows, evaluation filters to the 127 language-available scenes. SELF-REPORTED rows come from submitted papers where the local CSV could not be verified for that track, and DIAGNOSTIC rows required non-official duplicate handling. For teams with multiple files, the displayed row uses the organizer-selected best available submission for that applied track, except Ablation uses matched with-language and without-language files. Non-verified results are provisional and will undergo further organizer review before being treated as final verified leaderboard results.</p>
+                    <p class="helper-text">Leaderboard scores use single-shot, open-loop evaluation with one 6-second trajectory per sample. ADE reports <code>ade_6s</code>, and FDE reports the final 6-second displacement error. The Track column records the input modalities used: Full Multimodal (cameras, history, map, language) or Language + History (history and language only). VERIFIED rows were locally evaluated on the 127 nuScenes v1.0-test scenes with non-empty doScenes instructions. The full nuScenes v1.0-test split contains approximately 150 scenes, but 23 current doScenes test scenes have blank instruction fields and are excluded from instruction-conditioned leaderboard scoring. For submitted files with all 150 scene rows, evaluation filters to the 127 language-available scenes. SELF-REPORTED rows come from submitted papers where the local CSV could not be verified, and DIAGNOSTIC rows required non-official duplicate handling. Non-verified results are provisional and will undergo further organizer review before being treated as final verified leaderboard results.</p>
 
                     <h2 id="data">Dataset & Data Splits</h2>
 
@@ -1127,7 +1056,7 @@
                             </tr>
                             <tr>
                                 <td>Allowed nuScenes data</td>
-                                <td>Past or current nuScenes sensor, map, or metadata input, subject to track rules and no future leakage</td>
+                                <td>Past or current nuScenes sensor, map, or metadata input; no future leakage</td>
                             </tr>
                             <tr>
                                 <td>Train/validation scenes</td>
@@ -1276,7 +1205,7 @@
                         <li>The nuScenes v1.0-test split may be used only to generate website evaluation submissions, not for training, validation, model selection, or tuning.</li>
                         <li>Ground-truth future trajectories from the nuScenes v1.0-test split must not be used for training, validation, tuning, model selection, or submission debugging.</li>
                         <li>Test-set ground truth is not publicly available and must not be inferred, reconstructed, or used through any external source.</li>
-                        <li>Participants may use non-egocentric nuScenes data when it is allowed by the selected track, available at or before the prediction time, and does not reveal future information.</li>
+                        <li>Participants may use non-egocentric nuScenes data, provided those inputs are available at or before the prediction time and do not reveal future information.</li>
                         <li>Predictions must be generated for the nuScenes v1.0-test split and submitted for website evaluation.</li>
                         <li>Teams are expected to submit reproducible code that adheres to this protocol.</li>
                     </ul>
@@ -1291,9 +1220,8 @@
                     <p>
                         All required inputs for prediction, including historical trajectories, sensor data, maps, and language
                         instructions, can be obtained by combining the standard nuScenes dataset with the doScenes annotation files
-                        provided in the repository. Participants may use egocentric or non-egocentric nuScenes inputs when
-                        allowed by the selected track, provided the inputs are available at or before the prediction time and
-                        do not leak future information.
+                        provided in the repository. Participants may use egocentric or non-egocentric nuScenes inputs, provided
+                        those inputs are available at or before the prediction time and do not leak future information.
                     </p>
 
                     <h2 id="submission">Submission Instructions</h2>
@@ -1441,11 +1369,7 @@
                             <summary>Where do the required inputs for prediction come from?</summary>
                             <p>
                                 Required inputs can be assembled by combining the standard nuScenes dataset with the doScenes
-                                annotation files provided in the repository. Participants may use egocentric or non-egocentric
-                                nuScenes inputs when allowed by the selected track, as long as those inputs are available at or
-                                before the prediction time and do not reveal future information. Full Multimodal submissions may use cameras, history, map, and language;
-                                Language + History submissions may use history and language only; Ablation submissions must
-                                include both with-language and without-language results.
+                                annotation files provided in the repository. Participants may use cameras, history, map data, and the language instruction. Submissions that omit visual input (language and history only) are accepted and recorded with the appropriate Track label. Participants may use egocentric or non-egocentric nuScenes inputs as long as those inputs are available at or before the prediction time and do not reveal future information. All participants are strongly encouraged to report a matched history-only ablation result alongside their instruction-conditioned submission.
                             </p>
                         </details>
                         <details>
