@@ -21,6 +21,7 @@ exclude:
   - README.md
   - Gemfile
   - Gemfile.lock
+  - drafts
 
 # Navigation
 navigation:
