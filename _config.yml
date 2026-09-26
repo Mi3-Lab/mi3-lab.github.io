@@ -35,3 +35,5 @@ navigation:
     url: /prospective
   - title: Events, Highlights, & Gallery
     url: /gallery
+  - title: CivicProgress Challenge
+    url: /civic-progress
