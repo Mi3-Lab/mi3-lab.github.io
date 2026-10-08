@@ -945,3 +945,14 @@ img.person-avatar {
     padding: 40px 0;
   }
 }
+
+.person-card .lab-tag {
+  display: inline-block;
+  margin-top: 6px;
+  padding: 2px 10px;
+  border-radius: 12px;
+  background: var(--bg-light);
+  border: 1px solid var(--border-color);
+  font-size: 0.8rem;
+  color: var(--primary-color);
+}
